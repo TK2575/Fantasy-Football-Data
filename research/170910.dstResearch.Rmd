@@ -1,0 +1,155 @@
+---
+title: "170910 DST Research"
+output: html_notebook
+---
+
+```{r}
+library(googlesheets)
+library(dplyr)
+
+options(digits = 2)
+
+sheets <- gs_ls()
+sheets$sheet_title
+```
+
+```{r}
+ff <- gs_title("Fantasy League History")
+ff
+```
+
+```{r}
+s_2016 <- ff %>% 
+  gs_read(3) %>% 
+  select(1:3, 5, 11, 16:23, 29) %>%
+  select(1:3, Win = 4, 5:14) %>%
+  mutate(Win = as.logical(Win))
+
+nrow(s_2016)
+```
+
+```{r}
+s_2016 %>% 
+  filter(is.na(QB|WR1|WR2|RB1|RB2|TE|Flex|K), is.na(DST)) %>%
+  summarize(num = n())
+
+# 34 unuseable columns, or 16% of data
+
+s_2016 <- 
+  s_2016 %>% 
+  filter(!is.na(QB&RB1&WR2&RB1&RB2&TE&Flex&K&DST)) %>%
+  mutate(DST = if_else(!is.na(DST), DST, Score-QB-WR1-WR2-RB1-RB2-TE-Flex-K)) %>%
+  mutate(p_DST = DST/Score*100)
+```
+
+
+```{r}
+d_2016 <-
+  s_2016 %>% 
+  select(1:4,13:15)
+
+d_2016 <- d_2016 %>% 
+  left_join(select(d_2016, Owner, Week, DST), 
+            by = c('Opponent' = 'Owner', 'Week')) %>%
+  rename(opp_DST = DST.y, DST = DST.x) %>% 
+  mutate(net_d = abs(DST - opp_DST))
+
+```
+
+```{r}
+library(readxl)
+d_2017 <- read_excel("imports/170910.week1DSTResults.xlsx")
+```
+
+```{r}
+d_averages <- function(df) {
+  df %>%
+  group_by(Win) %>% 
+  summarize(min_d = min(DST),
+            avg_d = mean(DST), 
+            med_d = median(DST),
+            max_d = max(DST),
+            min_pd = min(p_DST, na.rm = TRUE), 
+            med_pd = median(p_DST, na.rm = TRUE),
+            avg_pd = mean(p_DST, na.rm = TRUE),
+            max_pd = max(p_DST, na.rm = TRUE),
+            min_nd = min(net_d, na.rm = TRUE),
+            med_nd = median(net_d, na.rm = TRUE),
+            avg_nd = mean(net_d, na.rm = TRUE),
+            max_nd = max(net_d, na.rm = TRUE)
+            )
+}
+
+d_2016 %>%
+  d_averages() %>%
+  bind_rows(d_averages(d_2017), .id = "Year") %>%
+  mutate(Year = as.numeric(Year) + 2015) %>%
+  arrange(Win, Year)
+```
+
+
+```{r}
+d_hist <- function(df, year) {
+  wi <- which(df$Win == TRUE)
+  li <- which(df$Win == FALSE)
+  
+  par(mfrow = c(2,3))
+  hist(df$DST, 
+       main = paste("DST per Team, Week \n", year), 
+       xlab = "DST Points",
+       breaks = seq(-10, 40, by = 5))
+  hist(df$DST[wi], 
+       main = paste("Winning DST per Team, Week \n", year), 
+       xlab = "DST Points",
+       breaks = seq(-10, 40, by = 5))
+  hist(df$DST[li], 
+       main = paste("Losing DST per Team, Week \n", year), 
+       xlab = "DST Points",
+       breaks = seq(-10, 40, by = 5))
+  hist(df$p_DST, 
+       main = paste("% DST of Total per \n  Team, Week - ", year), 
+       xlab = "% DST",
+       breaks = seq(-10, 40, by = 5))
+  hist(df$p_DST[wi], 
+       main = paste("% DST of Total per \n Winning Team, Week - ", year), 
+       xlab = "% DST",
+       breaks = seq(-10, 40, by = 5))
+  hist(df$p_DST[li], 
+       main = paste("% DST of Total per \n Losing Team, Week - ", year), 
+       xlab = "% DST",
+       breaks = seq(-10, 40, by = 5))
+  
+}
+
+d_hist(d_2016, 2016)
+d_hist(d_2017, 2017)
+# Identify per year
+```
+
+```{r}
+d_trend <- function(df) {
+  df %>%
+    group_by(Week) %>%
+    summarize(min_d = min(DST),
+              med_d = median(DST),
+              avg_d = mean(DST),
+              max_d = max(DST),
+              min_pd = min(p_DST, na.rm = TRUE),
+              med_pd = median(p_DST, na.rm = TRUE),
+              avg_pd = mean(p_DST, na.rm = TRUE),
+              max_pd = max(p_DST, na.rm = TRUE),
+              min_nd = min(net_d, na.rm = TRUE),
+              med_nd = median(net_d, na.rm = TRUE),
+              avg_nd = mean(net_d, na.rm = TRUE),
+              max_nd = max(net_d, na.rm = TRUE))
+}
+
+d_trend(d_2016)
+d_trend(d_2017)
+```
+
+```{r}
+d_2016 %>% filter(DST > 24)
+d_2016 %>% filter(p_DST > 21)
+```
+

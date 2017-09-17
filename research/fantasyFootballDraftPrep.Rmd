@@ -1,0 +1,174 @@
+---
+title: "2017 Fantasy Footaball Prep"
+output: html_notebook
+---
+
+
+
+```{r}
+library(googlesheets)
+library(dplyr)
+sheets <- gs_ls()
+```
+
+```{r}
+glimpse(sheets)
+```
+
+
+```{r}
+ff <- gs_title("2017 Fantasy Football Draft Prep")
+ff
+```
+
+```{r}
+#need to pmap this or something
+cav <- ff %>% gs_read(1)
+qb <- ff %>% gs_read(2)
+rb <- ff %>% gs_read(3)
+wr <- ff %>% gs_read(4)
+te <- ff %>% gs_read(5)
+```
+
+```{r}
+# should be able to iterate/apply/map this
+qb <- qb %>% left_join(cav, by = c("Player","Position"))
+rb <- rb %>% left_join(cav, by = c("Player","Position"))
+wr <- wr %>% left_join(cav, by = c("Player","Position"))
+te <- te %>% left_join(cav, by = c("Player","Position"))
+
+mstr <- bind_rows(qb, rb, wr, te)
+mstr
+```
+
+```{r}
+library(readxl)
+library(dplyr)
+setwd("imports")
+#need to be able to iterate/mapply this
+#files <- c("Andy QB.xlsx","Jason QB.xlsx","Mike QB.xlsx","Andy RB.xlsx","Jason RB.xlsx","Mike RB.xlsx","Andy WR.xlsx","Jason WR.xlsx","Mike WR.xlsx","Andy TE.xlsx","Jason TE.xlsx","Mike TE.xlsx")
+
+g_ex <- function(path) {
+  read_excel(path) %>%
+  filter(!is.na(Player))
+}
+
+qb1 <- g_ex("Andy QB.xlsx")
+qb2 <- g_ex("Jason QB.xlsx")
+qb3 <- g_ex("Mike QB.xlsx")
+rb1 <- g_ex("Andy RB.xlsx")
+rb2 <- g_ex("Jason RB.xlsx")
+rb3 <- g_ex("Mike RB.xlsx")
+wr1 <- g_ex("Andy WR.xlsx")
+wr2 <- g_ex("Jason WR.xlsx")
+wr3 <- g_ex("Mike WR.xlsx")
+te1 <- g_ex("Andy TE.xlsx")
+te2 <- g_ex("Jason TE.xlsx")
+te3 <- g_ex("Mike TE.xlsx")
+```
+
+```{r}
+#iterate or put in read function
+qb1[is.na(qb1)] <- 0
+qb2[is.na(qb2)] <- 0
+qb3[is.na(qb3)] <- 0
+rb1[is.na(rb1)] <- 0
+rb2[is.na(rb2)] <- 0
+rb3[is.na(rb3)] <- 0
+wr1[is.na(wr1)] <- 0
+wr2[is.na(wr2)] <- 0
+wr3[is.na(wr3)] <- 0
+te1[is.na(te1)] <- 0
+te2[is.na(te2)] <- 0
+te3[is.na(te3)] <- 0
+```
+
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+```{r}
+prep_qb <- function(df) {
+  df %>% 
+    select(-2, -3) %>% 
+    mutate(Points = (Yds/15) + (TD*4) + 
+          (Int*-2) + (Rush/10) + (RuTD*6)) %>% 
+    select(Player, Points)
+}
+
+prep_rb <- function(df) {
+  df %>%
+    select(-2,-3,-4) %>%
+    mutate(Points = (Yds/10) + (TD*6) + (Fum*-2) + 
+          (Rec*.5) + (ReYds/10) + (ReTD*6)) %>%
+    select(Player, Points)
+}
+
+prep_wr <- function(df) {
+  df %>%
+    select(-2, -3, -4) %>%
+    mutate(Points = (Rec*.5) + (Yds/10) + (TD*6)) %>%
+    select(Player, Points)
+}
+
+#iterate!
+qb1 <- prep_qb(qb1)
+qb2 <- prep_qb(qb2)
+qb3 <- prep_qb(qb3)
+rb1 <- prep_rb(rb1)
+rb2 <- prep_rb(rb2)
+rb3 <- prep_rb(rb3)
+wr1 <- prep_wr(wr1)
+wr2 <- prep_wr(wr2)
+wr3 <- prep_wr(wr3)
+te1 <- prep_wr(te1)
+te2 <- prep_wr(te2)
+te3 <- prep_wr(te3)
+
+```
+
+```{r}
+avg_points <- function(df) {
+  df %>%
+    group_by(Player) %>% 
+    rowwise() %>% 
+    mutate(pts_avg=mean(c(Points.x,Points.y,Points))) %>%
+    select(Player, pts_avg)
+}
+
+qb <- qb1 %>% 
+  full_join(qb2, by = "Player") %>%
+  full_join(qb3, by = "Player") %>%
+  avg_points()
+  
+
+rb <- rb1 %>% 
+  full_join(rb2, by = "Player") %>%
+  full_join(rb3, by = "Player") %>%
+  avg_points()
+
+wr <- wr1 %>% 
+  full_join(wr2, by = "Player") %>%
+  full_join(wr3, by = "Player") %>%
+  avg_points()
+
+te <- te1 %>% 
+  full_join(te2, by = "Player") %>%
+  full_join(te3, by = "Player") %>%
+  avg_points()
+```
+
+```{r}
+mstr <- qb %>%
+  bind_rows(rb) %>%
+  bind_rows(wr) %>%
+  bind_rows(te) %>%
+  full_join(select(mstr, -Points), by = "Player")
+```
+
+
+```{r}
+gs_ws_new(ff, "Players - Master", input = mstr)
+```
+
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
