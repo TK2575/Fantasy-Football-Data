@@ -1,58 +1,40 @@
-libraries <-
-  c("plyr", "RMySQL", "rvest", "stringr", "tidyr", "lubridate","dplyr","plotly","tibble")
-lapply(libraries, library, character.only = T)
+library(RSelenium)
+library(purrr)
 
-scrape <- function(html) {
-  teams_x <- '//*[contains(concat( " ", @class, " " ), concat( " ", "F-link", " " ))]/text()'
-  matchup <- '#matchup table'
-  bench <- '#bench-table table'
-  names <- c('Stats.x','Plyr.x','Proj.x','Pts.x','Pos.x','Pos','Pos.y','Pts.y','Proj.y','Plyr.y','Stats.y')
-  
-  #TODO: Iterate
-  m_df <-
-    html %>% read_html %>% html_nodes(matchup) %>% html_table(fill = TRUE)
-  b_df <- 
-    html %>% read_html %>% html_nodes(bench) %>% html_table(fill = TRUE)
-  teams <-
-    html %>% read_html %>% html_nodes(xpath=teams_x) %>% html_text()
-  
-  m_df <- m_df[[1]]
-  b_df <- b_df[[1]]
-  teams <- teams[1:2]
-  
-  colnames(m_df) <- names
-  colnames(b_df) <- names
-  
-  m_df <- m_df %>%
-    as_tibble %>%
-    clean_plyrs
-
-  b_df <- b_df %>%
-    as_tibble %>%
-    clean_plyrs
-  
-  
-  list(Matchup = m_df, Bench = b_df, Teams = teams)
+open_session <- function() {
+  rsDriver(verbose = FALSE)  
 }
 
-clean_plyrs <- function(df) {
-  x <- lapply(df$Plyr.x, clean_plyr) %>% unlist
-  y <- lapply(df$Plyr.y, clean_plyr) %>% unlist
-  
-  df %>% 
-    add_column(Player.x = x, Player.y = y) %>%
-    select(1, Player.x, 3:9, Player.y, 11)
+login <- function(rd) {
+  credentials <- read.csv("config.csv", stringsAsFactors = FALSE)
+  rd$client$navigate('https://football.fantasysports.yahoo.com/f1/25989/12')
+  webElem <- rd$client$findElement('xpath', '//*[@id="login-username"]')
+  webElem$sendKeysToElement(list(credentials[1,1], key = "enter"))
+  rd$client$setImplicitWaitTimeout(10000)
+  webElem2 <- rd$client$findElement('xpath', '//*[@id="login-passwd"]')
+  webElem2$sendKeysToElement(list(credentials[1,2], key = 'enter'))
 }
 
-clean_plyr <- function(char) {
-  #TODO i only resets via lapply??
-  i <- str_locate_all(pattern = '\\n', char) %>%
-    unlist()
-  
-  char %>% 
-    substr(i[1]+1,i[2]-1) %>%
-    str_trim()
+close_session <- function(rd) {
+  rd$client$close()
+  rd$server$stop()  
 }
 
-#TODO bind three results to single df
-# TODO Expand stats column, separate script probably
+match_url <- function(week_id,team_id) {
+  base_url <- 'https://football.fantasysports.yahoo.com/f1/25989/matchup?'
+  paste0(base_url,'week=',week_id,'&mid1=',team_id)
+}
+
+scrape_data <- function(rd,week_id,team_id) {
+  rd$client$navigate(match_url(week_id,team_id)) 
+  rd$client$getPageSource()[[1]][1]
+}
+
+scrape_week <- function(week_id) {
+  teams <- as.list(1:12)
+  rd <- open_session()
+  login(rd)
+  results <- map(teams, .f = scrape_data, rd = rd, week_id = week_id)
+  close_session(rd)
+  return(results)
+}
