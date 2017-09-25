@@ -1,6 +1,10 @@
-libraries <-
-  c("plyr", "RMySQL", "rvest", "stringr", "tidyr", "lubridate","dplyr","plotly","tibble")
-lapply(libraries, library, character.only = T)
+#' Clean html data retrieved from scrape.R 
+
+map(c("plyr", "RMySQL", "rvest", "stringr", "tidyr", "lubridate","dplyr","plotly","tibble","purrr"),
+    library, 
+    character.only = TRUE, 
+    quietly = TRUE, 
+    verbose = FALSE)
 
 clean_match <- function(html) {
   teams_x <- '//*[contains(concat( " ", @class, " " ), concat( " ", "F-link", " " ))]/text()'
@@ -35,6 +39,10 @@ clean_match <- function(html) {
   list(Matchup = m_df, Bench = b_df, Teams = teams)
 }
 
+clean_week <- function(html_list) {
+  map(html_list,clean_match)
+}
+
 clean_plyrs <- function(df) {
   x <- lapply(df$Plyr.x, clean_plyr) %>% unlist
   y <- lapply(df$Plyr.y, clean_plyr) %>% unlist
@@ -54,5 +62,31 @@ clean_plyr <- function(char) {
     str_trim()
 }
 
+is_duplicate <- function(team_vec1, team_vec2) {
+  result <- FALSE
+  if (sum(match(team_vec1,team_vec2),na.rm=T) > 0) {
+    result <- TRUE
+  }
+  return(result)
+}
+
+clean_numerics <- function(df) {
+  columns <- c('Proj.x','Proj.y','Pts.x','Pts.y')
+  for (i in columns) {
+    df[[i]] <- suppressWarnings(as.numeric(df[[i]]))
+    df[[i]][is.na(df[[i]])] <- 0
+  }
+  df
+}
+
 #TODO bind three results to single df
+  #add bench indicator column (mutate, add logical)
+  #bind rows
+  #as tibble
+  #clean plyrs (done)
+  #clean numerics (done)
+  #add teams, result
+  #remove unneeded Pos columns
+
+
 #TODO Expand stats column, separate script probably
