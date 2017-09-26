@@ -1,6 +1,6 @@
 #' Clean html data retrieved from scrape.R 
-
-map(c("plyr", "RMySQL", "rvest", "stringr", "tidyr", "lubridate","dplyr","plotly","tibble","purrr"),
+library('purrr')
+map(c("plyr", "RMySQL", "rvest", "stringr", "tidyr", "lubridate","dplyr","plotly","tibble"),
     library, 
     character.only = TRUE, 
     quietly = TRUE, 
@@ -12,7 +12,8 @@ clean_match <- function(html) {
   bench <- '#bench-table table'
   names <- c('Stats.x','Plyr.x','Proj.x','Pts.x','Pos.x','Pos','Pos.y','Pts.y','Proj.y','Plyr.y','Stats.y')
   
-  #TODO: Iterate
+  #TODO: Simplify
+  
   m_df <-
     html %>% read_html %>% html_nodes(matchup) %>% html_table(fill = TRUE)
   b_df <- 
@@ -29,14 +30,22 @@ clean_match <- function(html) {
   
   m_df <- m_df %>%
     as_tibble %>%
-    clean_plyrs
+    mutate(Bench = FALSE) %>% 
+    clean_numerics() 
 
   b_df <- b_df %>%
-    as_tibble %>%
-    clean_plyrs
+    as_tibble %>% 
+    mutate(Bench = TRUE) %>%
+    clean_numerics()
+  
+  results <- m_df %>% 
+    bind_rows(b_df) %>%
+    clean_plyrs() %>% 
+    mutate(Team.x = teams[1], Team.y = teams[2]) %>% 
+    select(Pos, Bench, Team.x, Player.x, Proj.x, Pts.x, Stats.x, Team.y, Player.y, Proj.y, Pts.y, Stats.y)
   
   
-  list(Matchup = m_df, Bench = b_df, Teams = teams)
+  results
 }
 
 clean_week <- function(html_list) {
@@ -49,7 +58,7 @@ clean_plyrs <- function(df) {
   
   df %>% 
     add_column(Player.x = x, Player.y = y) %>%
-    select(1, Player.x, 3:9, Player.y, 11)
+    select(-Plyr.x, -Plyr.y)
 }
 
 clean_plyr <- function(char) {
@@ -78,15 +87,5 @@ clean_numerics <- function(df) {
   }
   df
 }
-
-#TODO bind three results to single df
-  #add bench indicator column (mutate, add logical)
-  #bind rows
-  #as tibble
-  #clean plyrs (done)
-  #clean numerics (done)
-  #add teams, result
-  #remove unneeded Pos columns
-
 
 #TODO Expand stats column, separate script probably
