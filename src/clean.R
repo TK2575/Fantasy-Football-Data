@@ -11,6 +11,7 @@ clean_match <- function(html) {
   matchup <- '#matchup table'
   bench <- '#bench-table table'
   names <- c('Stats.x','Plyr.x','Proj.x','Pts.x','Pos.x','Pos','Pos.y','Pts.y','Proj.y','Plyr.y','Stats.y')
+  r_names <- c('Pos','Bench','Team','Player','Proj','Points','Stats')
   
   #TODO: Simplify
   
@@ -38,14 +39,21 @@ clean_match <- function(html) {
     mutate(Bench = TRUE) %>%
     clean_numerics()
   
-  results <- m_df %>% 
+  bind_df <- m_df %>% 
     bind_rows(b_df) %>%
     clean_plyrs() %>% 
     mutate(Team.x = teams[1], Team.y = teams[2]) %>% 
     select(Pos, Bench, Team.x, Player.x, Proj.x, Pts.x, Stats.x, Team.y, Player.y, Proj.y, Pts.y, Stats.y)
   
+  xr <- bind_df %>% 
+    select(Pos, Bench, Team.x, Player.x, Proj.x, Pts.x, Stats.x)
+  colnames(xr) <- r_names
   
-  results
+  yr <- bind_df %>%
+    select(Pos, Bench, Team.y, Player.y, Proj.y, Pts.y, Stats.y)
+  colnames(yr) <- r_names
+  
+  xr %>% bind_rows(yr)
 }
 
 clean_week <- function(html_list) {
@@ -88,4 +96,6 @@ clean_numerics <- function(df) {
   df
 }
 
+#TODO Add win, opponent columns in clean_match
+#TODO Add week, flatten via ldply(results, data.frame) and return as tibble in clean_week
 #TODO Expand stats column, separate script probably
