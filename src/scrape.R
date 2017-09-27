@@ -1,6 +1,6 @@
 #' Open Selenium session and scrape data from Yahoo Fantasy Football web pages
-
-map(c('RSelenium','purrr'), library, character.only = TRUE, quietly = TRUE)
+library('RSelenium')
+library('purrr')
 
 open_session <- function() {
   rsDriver(verbose = FALSE)  

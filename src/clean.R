@@ -7,57 +7,29 @@ map(c("plyr", "RMySQL", "rvest", "stringr", "tidyr", "lubridate","dplyr","plotly
     verbose = FALSE)
 
 clean_match <- function(html) {
-  teams_x <- '//*[contains(concat( " ", @class, " " ), concat( " ", "F-link", " " ))]/text()'
-  matchup <- '#matchup table'
-  bench <- '#bench-table table'
-  names <- c('Stats.x','Plyr.x','Proj.x','Pts.x','Pos.x','Pos','Pos.y','Pts.y','Proj.y','Plyr.y','Stats.y')
-  r_names <- c('Pos','Bench','Team','Player','Proj','Points','Stats')
+  teams <- get_teams(html) 
+  m_df <- extract_html(html, 'matchup')
+  b_df <- extract_html(html, 'bench')
   
-  #TODO: Simplify
+  r <- init_bind(m_df, b_df) %>% add_win()
   
-  m_df <-
-    html %>% read_html %>% html_nodes(matchup) %>% html_table(fill = TRUE)
-  b_df <- 
-    html %>% read_html %>% html_nodes(bench) %>% html_table(fill = TRUE)
-  teams <-
-    html %>% read_html %>% html_nodes(xpath=teams_x) %>% html_text()
+  c_nm <- c('Pos','Bench','Team','Win','Opponent','Player','Proj','Points','Stats')
   
-  m_df <- m_df[[1]]
-  b_df <- b_df[[1]]
-  teams <- teams[1:2]
+  xr <- r %>% select(Pos, Bench, Team.x, Win.x, Team.y, Player.x, Proj.x, Pts.x, Stats.x)
+  yr <- r %>% select(Pos, Bench, Team.y, Win.y, Team.x, Player.y, Proj.y, Pts.y, Stats.y)
   
-  colnames(m_df) <- names
-  colnames(b_df) <- names
-  
-  m_df <- m_df %>%
-    as_tibble %>%
-    mutate(Bench = FALSE) %>% 
-    clean_numerics() 
-
-  b_df <- b_df %>%
-    as_tibble %>% 
-    mutate(Bench = TRUE) %>%
-    clean_numerics()
-  
-  bind_df <- m_df %>% 
-    bind_rows(b_df) %>%
-    clean_plyrs() %>% 
-    mutate(Team.x = teams[1], Team.y = teams[2]) %>% 
-    select(Pos, Bench, Team.x, Player.x, Proj.x, Pts.x, Stats.x, Team.y, Player.y, Proj.y, Pts.y, Stats.y)
-  
-  xr <- bind_df %>% 
-    select(Pos, Bench, Team.x, Player.x, Proj.x, Pts.x, Stats.x)
-  colnames(xr) <- r_names
-  
-  yr <- bind_df %>%
-    select(Pos, Bench, Team.y, Player.y, Proj.y, Pts.y, Stats.y)
-  colnames(yr) <- r_names
+  colnames(xr) <- c_nm
+  colnames(yr) <- c_nm
   
   xr %>% bind_rows(yr)
 }
 
-clean_week <- function(html_list) {
-  map(html_list,clean_match)
+clean_week <- function(html_list,week_num) {
+  map(html_list,clean_match) %>% 
+    ldply(data.frame) %>% 
+    as_tibble() %>% 
+    mutate(Week = week_num) %>% 
+    select(Week, Team, Win, Opponent, Pos, Bench, Player, Proj, Points, Stats)
 }
 
 clean_plyrs <- function(df) {
@@ -96,6 +68,73 @@ clean_numerics <- function(df) {
   df
 }
 
-#TODO Add win, opponent columns in clean_match
-#TODO Add week, flatten via ldply(results, data.frame) and return as tibble in clean_week
+extract_html <- function(html, node) {
+  c_nm <- c('Stats.x','Plyr.x','Proj.x','Pts.x','Pos.x','Pos','Pos.y','Pts.y','Proj.y','Plyr.y','Stats.y')
+  
+  bench <- FALSE
+  if(node == 'bench') {
+    bench <- TRUE
+  }
+  
+  node_s <- switch(node, matchup = '#matchup table', bench = '#bench-table table')
+  
+  df <- html %>%
+    read_html %>%
+    html_nodes(node_s) %>%
+    html_table(fill = TRUE)
+  
+  df <- df[[1]]
+  colnames(df) <- c_nm
+  
+  df %>%
+    as_tibble %>%
+    mutate(Bench = bench) %>%
+    clean_numerics()
+  
+}
+
+prep_bind <- function(df) {
+  c_nm <- c('Pos','Bench','Team','Opponent','Player','Proj','Points','Stats')
+  
+  df <- df %>%
+    select(Pos, Bench, Team.x, Team.y, Player.x, Proj.x, Pts.x, Stats.x)
+  
+  colnames(df) <- c_nm
+}
+
+get_teams <- function(html) {
+  teams_x <- '//*[contains(concat( " ", @class, " " ), concat( " ", "F-link", " " ))]/text()'
+  
+  teams <-
+    html %>% read_html %>% html_nodes(xpath=teams_x) %>% html_text()
+  
+  teams[1:2]
+}
+
+init_bind <- function(m_df, b_df) {
+  m_df %>% 
+    bind_rows(b_df) %>%
+    clean_plyrs() %>% 
+    mutate(Team.x = teams[1], Team.y = teams[2]) %>% 
+    select(Pos, Bench, Team.x, Player.x, Proj.x, Pts.x, Stats.x, Team.y, Player.y, Proj.y, Pts.y, Stats.y)
+}
+
+add_win <- function(df) {
+  scores <- df %>% filter(Pos == 'TOTAL', Bench == FALSE) %>% select(Pts.x, Pts.y)
+  
+  x <- FALSE
+  y <- FALSE
+  
+  if(scores$Pts.x > scores$Pts.y) {
+    x <- TRUE
+  } else if (scores$Pts.y > scores$Pts.x) {
+    y <- TRUE
+  }
+  
+  df %>% mutate(Win.x = x, Win.y = y)
+}
+
+#TODO Debug current output of clean_week (only two teams?)
+#TODO remove duplicates from clean_match output
+#TODO Fix Bench player positions (roster spot versus position)
 #TODO Expand stats column, separate script probably
