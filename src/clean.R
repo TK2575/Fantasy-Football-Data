@@ -11,7 +11,7 @@ clean_match <- function(html) {
   m_df <- extract_html(html, 'matchup')
   b_df <- extract_html(html, 'bench')
   
-  r <- init_bind(m_df, b_df) %>% add_win()
+  r <- init_bind(m_df, b_df, teams) %>% add_win()
   
   c_nm <- c('Pos','Bench','Team','Win','Opponent','Player','Proj','Points','Stats')
   
@@ -111,7 +111,7 @@ get_teams <- function(html) {
   teams[1:2]
 }
 
-init_bind <- function(m_df, b_df) {
+init_bind <- function(m_df, b_df, teams) {
   m_df %>% 
     bind_rows(b_df) %>%
     clean_plyrs() %>% 
