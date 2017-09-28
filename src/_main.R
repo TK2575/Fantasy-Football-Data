@@ -10,3 +10,6 @@ get_week <- function(week_num) {
   scrape_week(week_num) %>%
     clean_week(week_num)
 }
+
+#TODO new script for writing to google sheets
+#TODO review accuracy of retrieved weekly data

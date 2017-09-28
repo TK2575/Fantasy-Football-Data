@@ -21,7 +21,7 @@ clean_match <- function(html) {
   colnames(xr) <- c_nm
   colnames(yr) <- c_nm
   
-  xr %>% bind_rows(yr)
+  xr %>% bind_rows(yr) %>% extract_all_pos()
 }
 
 clean_week <- function(html_list,week_num) {
@@ -29,7 +29,8 @@ clean_week <- function(html_list,week_num) {
     ldply(data.frame) %>% 
     as_tibble() %>% 
     mutate(Week = week_num) %>% 
-    select(Week, Team, Win, Opponent, Pos, Bench, Player, Proj, Points, Stats)
+    select(Week, Team, Win, Opponent, Pos, Bench, Player, Proj, Points, Stats) %>% 
+    distinct(.keep_all = TRUE)
 }
 
 clean_plyrs <- function(df) {
@@ -41,6 +42,15 @@ clean_plyrs <- function(df) {
     select(-Plyr.x, -Plyr.y)
 }
 
+extract_all_pos <- function(df) {
+  z <- lapply(df$Player, extract_pos) %>% unlist
+  
+  df %>%
+    add_column(Pos_new = z) %>%
+    select(-Pos) %>%
+    rename(Pos = Pos_new)
+}
+
 clean_plyr <- function(char) {
   #TODO i only resets via lapply??
   i <- str_locate_all(pattern = '\\n', char) %>%
@@ -48,6 +58,15 @@ clean_plyr <- function(char) {
   
   char %>% 
     substr(i[1]+1,i[2]-1) %>%
+    str_trim()
+}
+
+extract_pos <- function(char) {
+  j <- str_locate_all(pattern = '-', char) %>%
+    unlist()
+  
+  char %>%
+    substr(j[1]+1,nchar(char)) %>%
     str_trim()
 }
 
@@ -134,7 +153,4 @@ add_win <- function(df) {
   df %>% mutate(Win.x = x, Win.y = y)
 }
 
-#TODO Debug current output of clean_week (only two teams?)
-#TODO remove duplicates from clean_match output
-#TODO Fix Bench player positions (roster spot versus position)
 #TODO Expand stats column, separate script probably
