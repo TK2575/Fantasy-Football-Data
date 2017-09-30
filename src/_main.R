@@ -1,7 +1,7 @@
 #' Main method for calling other R scripts in this project
 
 setwd("src")
-sources <- c('scrape.R', 'clean.R')
+sources <- c('scrape.R', 'clean.R','output.R')
 lapply(sources, source)
 setwd("../")
 
@@ -11,5 +11,4 @@ get_week <- function(week_num) {
     clean_week(week_num)
 }
 
-#TODO new script for writing to google sheets
 #TODO review accuracy of retrieved weekly data
