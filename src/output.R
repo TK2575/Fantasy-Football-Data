@@ -1,4 +1,5 @@
 #' Takes data from clean.R and preps, writes to Google Sheets
+library(googlesheets)
 
 make_team_df <- function(df) {
   df %>% 
@@ -7,10 +8,9 @@ make_team_df <- function(df) {
 }
 
 make_match_df <- function(df) {
-  #Points
-  #Bench Points
-  #Net vs Proj
-  #Optimal Points
+  results <- df %>%
+    select(Week, Team, Win, Opponent) %>%
+    distinct(.keep_all = T)
   
   tot_points <- df %>%
     filter(Bench == FALSE & is.na(Player) & is.na(Pos)) %>%
@@ -43,24 +43,26 @@ make_match_df <- function(df) {
   
   def_points <- max_for_pos(df,'DEF')
   
+  #TODO write method for join/keys
   keys <- c('Week','Team')
   
-  #TODO Test this
   optimal_points <- qb_points %>% 
     left_join(rb_points, by=keys) %>%
     left_join(wr_points, by=keys) %>%
     left_join(te_points, by=keys) %>%
-    left_join(flex_points, by=keys)
-    left_join(k_points, by = keys) %>%
+    left_join(flex_points, by=keys) %>%
+    left_join(k_points, by=keys) %>%
     left_join(def_points, by = keys) %>%
-    group_by(Week,Team) %>%
-  #TODO sum remaining columns
-    summarize(Optimal_Points = sum())
+    group_by_(.dots = keys) %>%
+    summarize(Optimal_Points = sum(QB_Points, RB_Points, WR_Points, TE_Points, Flex_Points, K_Points, DEF_Points))
   
-  #TODO join to main data, write method for join/keys
+  results %>% 
+    left_join(tot_points,by=keys) %>%
+    left_join(bench_points,by=keys) %>%
+    left_join(optimal_points,by=keys)
       
 } 
-#TODO Fix dynamic column naming
+
 name_column <- function(pos) {
   paste0(pos,'_Points')
 }
@@ -70,8 +72,7 @@ max_for_pos <- function(df,pos) {
   df %>% 
     filter(!is.na(Player) & Pos %in% pos) %>%
     group_by(Week, Team) %>%
-    summarize(Pts = max(Points)) %>%
-    mutate(!!col = Pts)
+    summarize_(.dots = setNames('max(Points)',col))
 }
 
 max_for_2pos <- function(df,pos) {
@@ -82,27 +83,39 @@ max_for_2pos <- function(df,pos) {
     arrange(Week,Team, desc(Points)) %>%
     mutate(rank = rank(desc(Points))) %>%
     filter(rank < 3) %>%
-    summarize(col = sum(Points))
+    summarize_(.dots = setNames('sum(Points)',col))
+  
+  #TODO Make flex friendly
+  #This doesn't work, but is there a way it could and is it worth it?
+  #Maybe using this: https://www.r-bloggers.com/dynamic-columnvariable-names-with-dplyr-using-standard-evaluation-functions/
+  # multi_max_for_pos <- function(df,pos) {
+  #   col <- name_column(pos)
+  #   fltr <- 'rank < 3'
+  #   sum <- 'sum(Points)'
+  #   
+  #   if (pos == 'Flex') {
+  #     fltr <- "(rank > 2 & Pos %in% c('RB','WR')) | (rank > 1 & Pos == 'TE')"
+  #     pos <- c('RB','WR','TE')
+  #     sum <- 'max(Points)'
+  #   }
+  #   
+  #   df %>%
+  #     filter(!is.na(Player) & !is.na(Points) & Pos %in% pos) %>%
+  #     group_by(Week,Team,Pos) %>%
+  #     arrange(Week,Team,Pos) %>%
+  #     mutate(rank = rank(desc(Points))) %>%
+  #     filter(fltr) %>%
+  #     summarize(col = sum)
+  # }
 }
 
-#TODO: This doesn't work, but is there a way it could and is it worth it?
-#Maybe using this: https://www.r-bloggers.com/dynamic-columnvariable-names-with-dplyr-using-standard-evaluation-functions/
-# multi_max_for_pos <- function(df,pos) {
-#   col <- name_column(pos)
-#   fltr <- 'rank < 3'
-#   sum <- 'sum(Points)'
-#   
-#   if (pos == 'Flex') {
-#     fltr <- "(rank > 2 & Pos %in% c('RB','WR')) | (rank > 1 & Pos == 'TE')"
-#     pos <- c('RB','WR','TE')
-#     sum <- 'max(Points)'
-#   }
-#   
-#   df %>%
-#     filter(!is.na(Player) & !is.na(Points) & Pos %in% pos) %>%
-#     group_by(Week,Team,Pos) %>%
-#     arrange(Week,Team,Pos) %>%
-#     mutate(rank = rank(desc(Points))) %>%
-#     filter(fltr) %>%
-#     summarize(col = sum)
-# }
+write_to_sheets <- function(team_df, match_df) {
+  gs_ls()
+  doc <- gs_title("2017 Fantasy Football Results")
+  #writing brand new sheet
+  #gs_ws_new(doc, 'Roster', input=wk1_team)
+  
+  #gs_add_row is super slow
+  #need to find faster method - maybe download and reupload the whole thing?
+  
+}
