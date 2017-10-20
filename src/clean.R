@@ -44,11 +44,24 @@ clean_plyrs <- function(df) {
 
 extract_all_pos <- function(df) {
   z <- lapply(df$Player, extract_pos) %>% unlist
+  y <- lapply(df$Player,trim_plyr) %>% unlist
   
   df %>%
     add_column(Pos_new = z) %>%
     select(-Pos) %>%
-    rename(Pos = Pos_new)
+    rename(Pos = Pos_new) %>%
+    add_column(Plyr_new = y) %>% 
+    select(-Player) %>%
+    rename(Player = Plyr_new)
+}
+
+trim_plyr <- function(char) {
+  k <- str_locate_all(pattern = '-', char) %>%
+    unlist()
+  
+  char %>%
+    substr(0,max(k)-1) %>%
+    str_trim()
 }
 
 clean_plyr <- function(char) {
@@ -66,7 +79,7 @@ extract_pos <- function(char) {
     unlist()
   
   char %>%
-    substr(j[1]+1,nchar(char)) %>%
+    substr(max(j)+1,nchar(char)) %>%
     str_trim()
 }
 

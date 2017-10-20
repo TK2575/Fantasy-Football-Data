@@ -7,7 +7,7 @@ open_session <- function() {
 }
 
 login <- function(rd) {
-  credentials <- read.csv("config.csv", stringsAsFactors = FALSE)
+  credentials <- read.csv("conf/config.csv", stringsAsFactors = FALSE)
   rd$client$navigate('https://football.fantasysports.yahoo.com/f1/25989/12')
   webElem <- rd$client$findElement('xpath', '//*[@id="login-username"]')
   webElem$sendKeysToElement(list(credentials[1,1], key = "enter"))
