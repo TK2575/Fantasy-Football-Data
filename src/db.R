@@ -1,5 +1,4 @@
 #' Take raw cleaned scrape data and store to DB for retrieval and mass output
-#' https://github.com/TK2575/fb_2017/blob/master/src/db.R
 
 library(RMySQL)
 
@@ -52,7 +51,7 @@ num_to_lgl <- function(df, col) {
 
 get_roster_data <- function() {
   df <- get_data('roster') %>% num_to_lgl('bench')
-  colnames(df) <- c('Week', 'Team', 'Bench', 'Player', 'Points', 'Proj', 'Stats')
+  colnames(df) <- c('Week', 'Team', 'Bench', 'Pos', 'Player', 'Points', 'Proj', 'Stats')
   df
 }
 
