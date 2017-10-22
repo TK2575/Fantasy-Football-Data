@@ -1,7 +1,7 @@
 #' Main method for calling other R scripts in this project
 
 setwd("src")
-sources <- c('scrape.R', 'clean.R', 'db.R', 'output.R')
+sources <- c('scrape.R', 'clean.R', 'tidy.R', 'db.R', 'gs_out.R')
 lapply(sources, source)
 setwd("../")
 
@@ -9,7 +9,7 @@ setwd("../")
 get_week <- function(week_num) {
   scrape_week(week_num) %>%
     clean_week(week_num) %>%
-    write_week()
+    write_raw_data()
 }
 
 #TODO review accuracy of retrieved weekly data

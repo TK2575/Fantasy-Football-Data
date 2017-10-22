@@ -1,7 +1,7 @@
 #' Takes data from clean.R and preps, writes to Google Sheets
-library(googlesheets)
+library(dplyr)
 
-make_team_df <- function(df) {
+make_roster_df <- function(df) {
   df %>% 
     filter(!is.na(Player) & !is.na(Pos)) %>% 
     select(Week, Team, Bench, Pos, Player, Points, Proj, Stats)
@@ -107,15 +107,4 @@ max_for_2pos <- function(df,pos) {
   #     filter(fltr) %>%
   #     summarize(col = sum)
   # }
-}
-
-write_to_sheets <- function(team_df, match_df) {
-  gs_ls()
-  doc <- gs_title("2017 Fantasy Football Results")
-  #writing brand new sheet
-  #gs_ws_new(doc, 'Roster', input=wk1_team)
-  
-  #gs_add_row is super slow
-  #need to find faster method - maybe download and reupload the whole thing?
-  
 }

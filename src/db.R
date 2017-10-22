@@ -3,8 +3,16 @@
 
 library(RMySQL)
 
-write_week <- function(df) {
+write_raw_data <- function(df) {
   write_to_db(df, 'raw_df')
+}
+
+write_roster <- function(df) {
+  write_to_db(df, 'roster')
+}
+
+write_match <- function(df) {
+  write_to_db(df, 'matches')
 }
 
 write_to_db <- function(df, table_name) {
@@ -27,6 +35,40 @@ get_tables <- function() {
   results
 }
 
+get_data <- function(table) {
+  con <- connect()
+  df <- suppressWarnings(dbReadTable(con, table)) %>% as.tibble() %>% select(-1,-2)
+  dbDisconnect(con)
+  df[df == ''] <- NA
+  df
+}
+
+num_to_lgl <- function(df, col) {
+  for (i in col) {
+    df[[i]] <- as.logical(df[[i]])
+  }
+  df
+}
+
+get_roster_data <- function() {
+  df <- get_data('roster') %>% num_to_lgl('bench')
+  colnames(df) <- c('Week', 'Team', 'Bench', 'Player', 'Points', 'Proj', 'Stats')
+  df
+}
+
+get_matches_data <- function() {
+  df <- get_data('matches') %>% num_to_lgl('win')
+  colnames(df) <- c('Week', 'Team', 'Win', 'Opponent', 'Points', 'Net_vs_Proj', 'Bench_Points', 'Optimal_Points')
+  df
+}
+
+get_raw_data <- function() {
+  df <- get_data('raw_df')
+  df <- num_to_lgl(df, c('win','bench'))
+  colnames(df) <- c('Week','Team','Win','Opponent','Pos','Bench','Player','Proj','Points','Stats')
+  df
+}
+
 connect <- function() {
   dbConnect(
     RMySQL::MySQL(),
@@ -37,3 +79,4 @@ connect <- function() {
     password = "2017_ff"
   )
 }
+
