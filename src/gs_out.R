@@ -21,6 +21,7 @@ gs_add_all_data <- function() {
   gs_full_table(get_matches_data(), 'Matches')
 }
 
+# TODO delete contents of sheet instead of actual sheet? i.e. gs_edit_cells()
 gs_full_table <- function(df, mode) {
   doc <- gs_connect()
   gs_ws_delete(doc, mode, verbose=F)
@@ -32,5 +33,6 @@ gs_add_data <- function(df, mode) {
   doc <- gs_connect()
   gs_add_row(doc, mode, input=df, verbose=F)
 }
+
 
 # TODO add dimensions to gs_ws_new calls to match the input dimensions

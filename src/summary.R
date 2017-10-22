@@ -15,15 +15,17 @@ team_summary <- function(matches_df) {
     add_league_average()
 }
 
-# TODO add Total column
 team_pos_summary <- function(roster_df) {
-  roster_df %>% 
+  results <- roster_df %>% 
     filter(Bench == F) %>%
     group_by(Pos, Team) %>%
     summarize(Avg_vs_Proj = sum(Points)-sum(Proj)) %>% 
     spread(Pos, Avg_vs_Proj) %>%
     select(Team, QB, RB, WR, TE, K, DEF) %>%
     add_league_average()
+  
+  dec <- sapply(results, is.numeric)
+  results %>% mutate(Total = rowSums(.[dec]))
 }
 
 player_summary <- function(roster_df) {
