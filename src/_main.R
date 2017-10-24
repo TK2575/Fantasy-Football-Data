@@ -10,8 +10,8 @@ get_week <- function(week_num) {
   df <- scrape_week(week_num) %>% clean_week(week_num)
   # TODO iterate multiple functions over df
   write_raw_data(df)
-  write_roster(df)
-  write_match(df)
+  df %>% make_roster_df() %>% write_roster()
+  df %>% make_match_df() %>% write_match()
 }
 
 #TODO review accuracy of retrieved weekly data

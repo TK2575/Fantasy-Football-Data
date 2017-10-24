@@ -8,7 +8,7 @@ team_summary <- function(matches_df) {
   matches_df %>%
     group_by(Team) %>%
     summarize(Points_per_Week = mean(Points),
-              Proj_per_Week = mean(Points+Net_vs_Proj),
+              Proj_per_Week = mean(Points-Net_vs_Proj),
               Avg_vs_Proj = mean(Net_vs_Proj),
               Avg_Optimal = mean(Optimal_Points),
               Lineup_efficiency = sum(Points)/sum(Optimal_Points)) %>%

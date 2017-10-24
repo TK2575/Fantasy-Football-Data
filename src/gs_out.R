@@ -8,7 +8,6 @@ gs_connect <- function() {
 }
 
 gs_add_week <- function(week_num) {
-  doc <- gs_connect()
   get_matches_data() %>% filter(Week == week_num) %>% gs_add_data(mode='Matches')
   get_roster_data() %>% filter(Week == week_num) %>% gs_add_data(mode='Roster')
   get_matches_data() %>% team_summary() %>% gs_full_table(mode='Team Scoring Summary')
