@@ -11,16 +11,27 @@ team_summary <- function(matches_df) {
               Proj_per_Week = mean(Points-Net_vs_Proj),
               Avg_vs_Proj = mean(Net_vs_Proj),
               Avg_Optimal = mean(Optimal_Points),
-              Lineup_efficiency = sum(Points)/sum(Optimal_Points)) %>%
+              Lineup_efficiency = sum(Points)/sum(Optimal_Points),
+              Wins = sum(Win)) %>%
     add_league_average()
 }
 
-team_pos_summary <- function(roster_df) {
+team_pos_summary <- function(roster_df,mode='sum') {
   results <- roster_df %>% 
     filter(Bench == F) %>%
-    group_by(Pos, Team) %>%
-    summarize(Avg_vs_Proj = sum(Points)-sum(Proj)) %>% 
-    spread(Pos, Avg_vs_Proj) %>%
+    group_by(Pos, Team)
+  
+  if (mode == 'vs_proj') {
+    results <- results %>% 
+      summarize(Avg_vs_Proj = sum(Points)-sum(Proj)) %>% 
+      spread(Pos, Avg_vs_Proj)
+  } else {
+    results <- results %>%
+      summarize(Avg = sum(Points)/max(Week)) %>%
+      spread(Pos, Avg)
+  } 
+  
+  results <- results %>% 
     select(Team, QB, RB, WR, TE, K, DEF) %>%
     add_league_average()
   

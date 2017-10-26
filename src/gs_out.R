@@ -12,6 +12,7 @@ gs_add_week <- function(week_num) {
   get_roster_data() %>% filter(Week == week_num) %>% gs_add_data(mode='Roster')
   get_matches_data() %>% team_summary() %>% gs_full_table(mode='Team Scoring Summary')
   get_roster_data() %>% team_pos_summary() %>% gs_full_table(mode='Position Scoring Summary')
+  get_roster_data() %>% team_pos_summary(mode='vs_proj') %>% gs_full_table(mode='Position Scoring vs Projection')
   get_roster_data() %>% player_summary() %>% gs_full_table(mode='Player Scoring Summary')
 }
 
