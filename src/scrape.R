@@ -54,7 +54,11 @@ scrape_player_pages <- function(rd,pos,week,pages) {
   map(as.list(1:pages), .f = scrape_player_page, rd = rd, pos = pos, week = week)
 }
 
-scrape_player_data <- function(rd,week) {
+#TODO: Merge with scrape_week()
+scrape_player_data <- function(week) {
+  rd <- open_session()
+  login(rd)
+  
   qb <- scrape_player_pages(rd,'QB',week,2)
   rb <- scrape_player_pages(rd,'RB',week,5)
   wr <- scrape_player_pages(rd,'WR',week,5)
@@ -63,6 +67,7 @@ scrape_player_data <- function(rd,week) {
   k <- scrape_player_pages(rd,'K',week,2)
   dst <- scrape_player_pages(rd,'DEF',week,2)
   
+  close_session(rd)
   list(qb,rb,wr,te,flx,k,dst)
 }
 
