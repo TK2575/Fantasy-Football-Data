@@ -29,7 +29,7 @@ clean_week <- function(html_list,week_num) {
     ldply(data.frame) %>% 
     as_tibble() %>% 
     mutate(Week = week_num) %>% 
-    select(Week, Team, Win, Opponent, Pos, Bench, Player, Proj, Points, Stats) %>% 
+    select(Week, Team, Win, Opponent, Slot, Pos, Bench, Player, Proj, Points, Stats) %>% 
     distinct(.keep_all = TRUE)
 }
 
@@ -47,12 +47,9 @@ extract_all_pos <- function(df) {
   y <- lapply(df$Player,trim_plyr) %>% unlist
   
   df %>%
-    add_column(Pos_new = z) %>%
-    select(-Pos) %>%
-    rename(Pos = Pos_new) %>%
-    add_column(Plyr_new = y) %>% 
     select(-Player) %>%
-    rename(Player = Plyr_new)
+    rename(Slot = Pos) %>%
+    add_column(Pos = z, Player = y)
 }
 
 trim_plyr <- function(char) {

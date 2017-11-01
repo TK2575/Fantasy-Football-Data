@@ -51,7 +51,7 @@ num_to_lgl <- function(df, col) {
 
 get_roster_data <- function() {
   df <- get_data('roster') %>% num_to_lgl('bench')
-  colnames(df) <- c('Week', 'Team', 'Bench', 'Pos', 'Player', 'Points', 'Proj', 'Stats')
+  colnames(df) <- c('Week', 'Team', 'Bench', 'Slot', 'Pos', 'Player', 'Points', 'Proj', 'Stats')
   df
 }
 

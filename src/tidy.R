@@ -3,8 +3,9 @@ library(dplyr)
 
 make_roster_df <- function(df) {
   df %>% 
-    filter(!is.na(Player) & !is.na(Pos)) %>% 
-    select(Week, Team, Bench, Pos, Player, Points, Proj, Stats)
+    filter(Slot != 'TOTAL') %>%
+    filter(!(Bench == T & is.na(Player))) %>%
+    select(Week, Team, Bench, Slot, Pos, Player, Points, Proj, Stats)
 }
 
 make_match_df <- function(df) {
@@ -13,14 +14,15 @@ make_match_df <- function(df) {
     distinct(.keep_all = T)
   
   tot_points <- df %>%
-    filter(Bench == FALSE & is.na(Player) & is.na(Pos)) %>%
+    filter(Bench == F & Slot == 'TOTAL') %>%
+    group_by(Week, Team) %>%
     mutate(Net_vs_Proj = Points-Proj) %>%
     select(Week, Team, Points, Net_vs_Proj)
   
   bench_points <- df %>% 
-    filter(Bench == TRUE & !is.na(Player) & !is.na(Pos)) %>%
-    group_by(Week, Team) %>% 
-    summarize(Bench_Points = sum(Points))
+    filter(Bench == T & Slot == 'TOTAL') %>%
+    rename(Bench_Points = Points) %>% 
+    select(Week, Team, Bench_Points)
   
   qb_points <- max_for_pos(df,'QB')
   
@@ -52,7 +54,11 @@ make_match_df <- function(df) {
     left_join(te_points, by=keys) %>%
     left_join(flex_points, by=keys) %>%
     left_join(k_points, by=keys) %>%
-    left_join(def_points, by = keys) %>%
+    left_join(def_points, by = keys)
+  
+  optimal_points[is.na(optimal_points)] <- 0
+  
+  optimal_points <- optimal_points %>%
     group_by_(.dots = keys) %>%
     summarize(Optimal_Points = sum(QB_Points, RB_Points, WR_Points, TE_Points, Flex_Points, K_Points, DEF_Points))
   
