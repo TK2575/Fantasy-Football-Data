@@ -4,6 +4,7 @@ CREATE TABLE `2017_ff`.`roster` (
   `week` INT NOT NULL,
   `team` VARCHAR(255) NULL,
   `bench` BOOL NOT NULL,
+  `slot` VARCHAR(8) NOT NULL,
   `pos` VARCHAR(8) NOT NULL,
   `player` VARCHAR(255) NOT NULL,
   `points` DECIMAL(8,3) NULL,

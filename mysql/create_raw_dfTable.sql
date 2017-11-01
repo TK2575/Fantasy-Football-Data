@@ -5,6 +5,7 @@ CREATE TABLE `2017_ff`.`raw_df` (
   `team` VARCHAR(255) NULL,
   `win` BOOL NOT NULL,
   `opponent` VARCHAR(255) NULL,
+  `slot` VARCHAR(8) NOT NULL,
   `pos` VARCHAR(8) NOT NULL,
   `bench` BOOL NOT NULL,
   `player` VARCHAR(255) NOT NULL,
