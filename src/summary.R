@@ -3,7 +3,6 @@
 library(tidyr)
 library(dplyr)
 
-# TODO add W-L record
 team_summary <- function(matches_df) {
   matches_df %>%
     group_by(Team) %>%

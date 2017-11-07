@@ -8,6 +8,22 @@ make_roster_df <- function(df) {
     select(Week, Team, Bench, Slot, Pos, Player, Points, Proj, Stats)
 }
 
+add_roster_ranks <- function(rst_df, rnk_df) {
+  #TODO: exclude rst stats, include rnk stats
+  rst_df %>% 
+    full_join(rnk_df, by = c('Week','Player','Pos')) %>%
+    select(Week, Team, Bench, Slot, Pos, Player, Points, Proj, Perc_Owned, Rank_Pos, Rank_Ovrl, Stats)
+}
+
+add_pos_ranks <- function(df) {
+  df %>%
+    group_by(Pos) %>%
+    mutate(Rank_Pos = rank(Rank_Ovrl,
+                           na.last = 'keep',
+                           ties.method = 'min')) %>%
+    ungroup()
+}
+
 make_match_df <- function(df) {
   results <- df %>%
     select(Week, Team, Win, Opponent) %>%
