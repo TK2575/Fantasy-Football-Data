@@ -185,9 +185,8 @@ clean_week_ranks <- function(html_list,week) {
   k <- html_list[['K']] %>% extract_plyr_html_list(mode='k')
   def <- html_list[['DEF']] %>% extract_plyr_html_list(mode='def')
   
-  res <- bind_rows(qb,rb,wr,te,k,def) %>% mutate(Week = week)
-  res$Player <- v_trim_first_name(res$Player)
-  res
+  bind_rows(qb,rb,wr,te,k,def) %>% 
+    mutate(Week = week)
 }
 
 extract_plyr_html_list <- function(html_list, mode='offense') {
@@ -196,7 +195,7 @@ extract_plyr_html_list <- function(html_list, mode='offense') {
     new_rows <- html_list[[i]] %>%
       extract_plyr_html()
     if (mode == 'offense') {
-      new_rows <- new_rows[-c(2:6,9,24)]
+      new_rows <- new_rows[-c(2:5,8,23)]
       colnames(new_rows) <- c('Player',
                               'Points',
                               'Perc_Owned',
@@ -222,18 +221,18 @@ extract_plyr_html_list <- function(html_list, mode='offense') {
                               'Points',
                               'Perc_Owned',
                               'Rank_Ovrl',
-                              'FG 0-19',
-                              'FG 20-29',
-                              'FG 30-39',
-                              'FG 40-49',
-                              'FG 50+',
-                              'FGM 0-19 ',
-                              'FGM 20-29',
-                              'FGM 30-39',
-                              'FGM 40-49 ',
-                              'FGM 50+',
+                              'FG_0-19',
+                              'FG_20-29',
+                              'FG_30-39',
+                              'FG_40-49',
+                              'FG_50+',
+                              'FGM_0-19',
+                              'FGM_20-29',
+                              'FGM_30-39',
+                              'FGM_40-49',
+                              'FGM_50+',
                               'PAT',
-                              'PAT Miss')
+                              'PAT_Miss')
       df <- df %>%
         bind_rows(new_rows)
     } else if (mode == 'def') {
@@ -245,9 +244,9 @@ extract_plyr_html_list <- function(html_list, mode='offense') {
                               'Pts_vs',
                               'Sack',
                               'Safety',
-                              'Int',
+                              'Def_Int',
                               'Fum_Rec',
-                              'TD',
+                              'Def_TD',
                               'Blk_Kick',
                               'Yds_Allow',
                               'Ret_TD')
@@ -277,6 +276,9 @@ extract_plyr_html <- function(html) {
   df <- df[[1]][-1]
   colnames(df) <- df[1,]
   df <- df[-1,]
+  if ("Forecast" %in% colnames(df)) {
+    df[["Forecast"]] <- NULL
+  }
   df
 }
 

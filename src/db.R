@@ -14,6 +14,10 @@ write_match <- function(df) {
   write_to_db(df, 'matches')
 }
 
+write_rank <- function(df) {
+  write_to_db(df, 'rank')
+}
+
 write_to_db <- function(df, table_name) {
   con <- connect()
   lgl_c <- sapply(df, is.logical)
@@ -58,6 +62,51 @@ get_roster_data <- function() {
 get_matches_data <- function() {
   df <- get_data('matches') %>% num_to_lgl('win')
   colnames(df) <- c('Week', 'Team', 'Win', 'Opponent', 'Points', 'Net_vs_Proj', 'Bench_Points', 'Optimal_Points')
+  df
+}
+
+get_rank_data <- function() {
+  df <- get_data('rank')
+  colnames(df) <- c('Week',
+                    'Pos',
+                    'Player', 
+                    'Points', 
+                    'Perc_Owned', 
+                    'Rank_Ovrl',
+                    'Rank_Pos',
+                    'Pass_Yds', 
+                    'Pass_TD', 
+                    'Pass_Int', 
+                    'Rush_Att', 
+                    'Rush_Yds', 
+                    'Rush_TD', 
+                    'Rec_Tgt', 
+                    'Rec', 
+                    'Rec_Yds', 
+                    'Rec_TD', 
+                    'Ret_TD', 
+                    '2PT', 
+                    'Fum_Lost', 
+                    'FG_0-19', 
+                    'FG_20-29', 
+                    'FG_30-39', 
+                    'FG_40-49', 
+                    'FG_50+', 
+                    'FGM_0-19', 
+                    'FGM_20-29', 
+                    'FGM_30-39', 
+                    'FGM_40-49', 
+                    'FGM_50+', 
+                    'PAT', 
+                    'PAT_Miss', 
+                    'Pts_vs', 
+                    'Sack', 
+                    'Safety', 
+                    'Int', 
+                    'Fum_Rec', 
+                    'TD', 
+                    'Blk_Kick', 
+                    'Yds_Allow')
   df
 }
 

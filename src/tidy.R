@@ -1,4 +1,4 @@
-#' Takes data from clean.R and preps, writes to Google Sheets
+#' Takes data from clean.R and preps for outputs
 library(dplyr)
 
 make_roster_df <- function(df) {
@@ -8,20 +8,28 @@ make_roster_df <- function(df) {
     select(Week, Team, Bench, Slot, Pos, Player, Points, Proj, Stats)
 }
 
-add_roster_ranks <- function(rst_df, rnk_df) {
-  #TODO: exclude rst stats, include rnk stats
+join_roster_ranks <- function(rst_df, rnk_df) {
   rst_df %>% 
+    select(-Points,-Stats) %>% 
     full_join(rnk_df, by = c('Week','Player','Pos')) %>%
-    select(Week, Team, Bench, Slot, Pos, Player, Points, Proj, Perc_Owned, Rank_Pos, Rank_Ovrl, Stats)
+    filter(!is.na(Team) | Points > 0) %>%
+    select(Week, Team, Bench, Slot, Pos, Player, Points, Proj, Rank_Pos, Rank_Ovrl, Perc_Owned, everything())
 }
 
-add_pos_ranks <- function(df) {
+add_ranks <- function(df) {
   df %>%
+    select(-Rank_Ovrl) %>%
+    arrange(desc(Points)) %>%
+    mutate(Rank_Ovrl = rank(desc(Points),
+                            na.last = 'keep',
+                            ties.method = 'min')) %>%
     group_by(Pos) %>%
     mutate(Rank_Pos = rank(Rank_Ovrl,
                            na.last = 'keep',
                            ties.method = 'min')) %>%
-    ungroup()
+    ungroup() %>%
+    select(Week, Pos, Player, Points, Perc_Owned, Rank_Ovrl, Rank_Pos, everything())
+    
 }
 
 make_match_df <- function(df) {

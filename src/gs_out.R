@@ -9,7 +9,7 @@ gs_connect <- function() {
 
 gs_add_week <- function(week_num) {
   get_matches_data() %>% filter(Week == week_num) %>% gs_add_data(mode='Matches')
-  get_roster_data() %>% filter(Week == week_num) %>% gs_add_data(mode='Roster')
+  get_rstr_wth_rnk() %>% filter(Week == week_num) %>% gs_add_data(mode='Roster')
   gs_update_summaries()
 }
 
@@ -21,7 +21,7 @@ gs_update_summaries <- function() {
 }
 
 gs_add_all_data <- function() {
-  gs_full_table(get_roster_data(), 'Roster')
+  gs_full_table(get_rstr_wth_rnk(), 'Roster')
   gs_full_table(get_matches_data(), 'Matches')
   gs_update_summaries()
 }
