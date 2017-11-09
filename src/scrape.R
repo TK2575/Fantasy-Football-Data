@@ -58,11 +58,11 @@ scrape_player_data <- function(week) {
   rd <- open_session()
   login(rd)
   
-  qb <- scrape_player_pages(rd,'QB',week,2)
-  rb <- scrape_player_pages(rd,'RB',week,5)
-  wr <- scrape_player_pages(rd,'WR',week,5)
-  te <- scrape_player_pages(rd,'TE',week,3)
-  k <- scrape_player_pages(rd,'K',week,2)
+  qb <- scrape_player_pages(rd,'QB',week,3)
+  rb <- scrape_player_pages(rd,'RB',week,17)
+  wr <- scrape_player_pages(rd,'WR',week,17)
+  te <- scrape_player_pages(rd,'TE',week,9)
+  k <- scrape_player_pages(rd,'K',week,3)
   dst <- scrape_player_pages(rd,'DEF',week,2)
   
   close_session(rd)

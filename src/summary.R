@@ -3,10 +3,6 @@
 library(tidyr)
 library(dplyr)
 
-get_rstr_wth_rnk <- function() {
-  join_roster_ranks(get_roster_data(), get_rank_data())
-}
-
 team_summary <- function(matches_df) {
   matches_df %>%
     group_by(Team) %>%
