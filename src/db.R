@@ -53,9 +53,58 @@ num_to_lgl <- function(df, col) {
   df
 }
 
+get_roster_backup_data <- function() {
+  df <- get_data('roster_bak') %>% num_to_lgl('bench')
+  colnames(df) <- c('Week', 'Team', 'Bench', 'Slot', 'Pos', 'Player', 'Points', 'Proj', 'Stats')
+  df
+}
+
 get_roster_data <- function() {
   df <- get_data('roster') %>% num_to_lgl('bench')
-  colnames(df) <- c('Week', 'Team', 'Bench', 'Slot', 'Pos', 'Player', 'Points', 'Proj', 'Stats')
+  colnames(df) <- c('Week',
+                    'Team',
+                    'Bench',
+                    'Slot',
+                    'Pos',
+                    'Player',
+                    'Points',
+                    'Proj',
+                    'Rank_Pos',
+                    'Rank_Ovrl',
+                    'Perc_Owned',
+                    'Pass_Yds',
+                    'Pass_TD',
+                    'Pass_Int',
+                    'Rush_Att',
+                    'Rush_Yds',
+                    'Rush_TD',
+                    'Rec_Tgt',
+                    'Rec',
+                    'Rec_Yds',
+                    'Rec_TD',
+                    'Ret_TD',
+                    '2PT',
+                    'Fum_Lost',
+                    'FG_0-19',
+                    'FG_20-29',
+                    'FG_30-39',
+                    'FG_40-49',
+                    'FG_50+',
+                    'FGM_0-19',
+                    'FGM_20-29',
+                    'FGM_30-39',
+                    'FGM_40-49',
+                    'FGM_50+',
+                    'PAT',
+                    'PAT_Miss',
+                    'Pts_vs',
+                    'Sack',
+                    'Safety',
+                    'Def_Int',
+                    'Fum_Rec',
+                    'Def_TD',
+                    'Blk_Kick',
+                    'Yds_Allow')
   df
 }
 
