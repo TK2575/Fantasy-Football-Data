@@ -64,7 +64,6 @@ trim_plyr <- function(char) {
 v_trim_plyr <- Vectorize(trim_plyr)
 
 clean_plyr <- function(char) {
-  #TODO i only resets via lapply?? - cause the method isn't vectorized
   i <- str_locate_all(pattern = '\\n', char) %>%
     unlist()
   
@@ -74,6 +73,15 @@ clean_plyr <- function(char) {
 }
 
 v_cln_plyr <- Vectorize(clean_plyr)
+
+trim_first_name <- function(char) {
+  l <- str_locate(pattern = ' ', char) %>%
+    unlist()
+  
+  paste0(substr(char,1,1), '. ', substr(char,min(l)+1,nchar(char)))
+}
+
+v_trim_first_name <- Vectorize(trim_first_name)
 
 extract_pos <- function(char) {
   j <- str_locate_all(pattern = '-', char) %>%
@@ -169,54 +177,108 @@ add_win <- function(df) {
   df %>% mutate(Win.x = x, Win.y = y)
 }
 
-# TODO: merge with clean_week
 clean_week_ranks <- function(html_list,week) {
-  res <- data.frame(Player=character(),
-                    Owner=character(),
-                    Points=double(),
-                    Perc_Owned=double(),
-                    Rank_Ovrl=double(),
-                    Pos=character(),
-                    stringsAsFactors=F) %>%
-    as_tibble()
+  qb <- html_list[['QB']] %>% extract_plyr_html_list()
+  rb <- html_list[['RB']] %>% extract_plyr_html_list()
+  wr <- html_list[['WR']] %>% extract_plyr_html_list()
+  te <- html_list[['TE']] %>% extract_plyr_html_list()
+  k <- html_list[['K']] %>% extract_plyr_html_list(mode='k')
+  def <- html_list[['DEF']] %>% extract_plyr_html_list(mode='def')
   
+  bind_rows(qb,rb,wr,te,k,def) %>% 
+    mutate(Week = week)
+}
+
+extract_plyr_html_list <- function(html_list, mode='offense') {
+  df <- data.frame()
   for (i in seq_along(html_list)) {
-    for (j in seq_along(html_list[[i]])) {
-      new_rows <- html_list[[i]][[j]] %>%
-        clean_raw_ranks()
-      
-      res <- res %>%
+    new_rows <- html_list[[i]] %>%
+      extract_plyr_html()
+    if (mode == 'offense') {
+      new_rows <- new_rows[-c(2:5,8,23)]
+      colnames(new_rows) <- c('Player',
+                              'Points',
+                              'Perc_Owned',
+                              'Rank_Ovrl',
+                              'Pass_Yds',
+                              'Pass_TD',
+                              'Pass_Int',
+                              'Rush_Att',
+                              'Rush_Yds',
+                              'Rush_TD',
+                              'Rec_Tgt',
+                              'Rec',
+                              'Rec_Yds',
+                              'Rec_TD',
+                              'Ret_TD',
+                              '2PT',
+                              'Fum_Lost')
+      df <- df %>%
+        bind_rows(new_rows)
+    } else if (mode == 'k') {
+      new_rows <- new_rows[-c(2:5,8,22)]
+      colnames(new_rows) <- c('Player',
+                              'Points',
+                              'Perc_Owned',
+                              'Rank_Ovrl',
+                              'FG_0-19',
+                              'FG_20-29',
+                              'FG_30-39',
+                              'FG_40-49',
+                              'FG_50+',
+                              'FGM_0-19',
+                              'FGM_20-29',
+                              'FGM_30-39',
+                              'FGM_40-49',
+                              'FGM_50+',
+                              'PAT',
+                              'PAT_Miss')
+      df <- df %>%
+        bind_rows(new_rows)
+    } else if (mode == 'def') {
+      new_rows <- new_rows[-c(2:5,8,19)]
+      colnames(new_rows) <- c('Player',
+                              'Points',
+                              'Perc_Owned',
+                              'Rank_Ovrl',
+                              'Pts_vs',
+                              'Sack',
+                              'Safety',
+                              'Def_Int',
+                              'Fum_Rec',
+                              'Def_TD',
+                              'Blk_Kick',
+                              'Yds_Allow',
+                              'Ret_TD')
+      df <- df %>%
         bind_rows(new_rows)
     }
   }
-  
-  res
-}
-
-#TODO: further testing with Flex, TE positions, validate data
-clean_raw_ranks <- function(html) {
-  df <- extract_rank_html(html)
-  colnames(df) <- c('Player','Owner','Points','Perc_Owned','Rank_Ovrl')
   df <- as_tibble(df)
   df$Player <- v_cln_plyr(df$Player)
+  if (mode != 'def') {
+    df$Player <- v_trim_first_name(df$Player)
+  }
+  df$Perc_Owned <- v_cnvrt_perc(df$Perc_Owned)
   df <- df %>% mutate(Pos = v_ext_pos(Player))
   df$Player <- v_trim_plyr(df$Player)
-  df$Perc_Owned <- v_cnvrt_perc(df$Perc_Owned)
-  int_col <- c('Points','Rank_Ovrl')
-  df[,int_col] <- suppressWarnings(lapply(df[,int_col], as.numeric))
+  not_int <- grep(paste(c('Player','Pos'),collapse="|"),colnames(df))
+  df[,-(not_int)] <- suppressWarnings(lapply(df[,-(not_int)], as.numeric))
   df
 }
 
-#TODO: Merge extract_html and extract_rank_html
-extract_rank_html <- function(html) {
+extract_plyr_html <- function(html) {
   df <- html %>%
-    read_html() %>%
+    read_html %>%
     html_nodes('#players-table table') %>%
-    html_table(fill = T)
+    html_table(fill=T)
   
-  df <- df[[1]][c(2,5,8,9,11)]
+  df <- df[[1]][-1]
   colnames(df) <- df[1,]
   df <- df[-1,]
+  if ("Forecast" %in% colnames(df)) {
+    df[["Forecast"]] <- NULL
+  }
   df
 }
 
@@ -227,5 +289,3 @@ cnvrt_perc <- function(chr) {
 }
 
 v_cnvrt_perc <- Vectorize(cnvrt_perc)
-
-#TODO Expand stats column, separate script probably
