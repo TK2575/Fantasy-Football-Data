@@ -10,21 +10,14 @@ get_week <- function(week_num) {
   df <- scrape_week(week_num) %>% clean_week(week_num)
   write_raw_data(df)
   rst_df <- df %>% make_roster_df()
-<<<<<<< HEAD
   rst_df %>% write_roster()
-=======
->>>>>>> 0acb68b4a1c8b0570b7ed2966bb09c399a67fee9
   df %>% make_match_df() %>% write_match()
   
   rnk_df <- scrape_player_data(week_num) %>% 
     clean_week_ranks(week_num) %>%
     add_ranks() 
   
-<<<<<<< HEAD
   join_roster_ranks(rst_df,rnk_df) %>% write_expanded_roster()
-=======
-  join_roster_ranks(rst_df,rnk_df) %>% write_roster()
->>>>>>> 0acb68b4a1c8b0570b7ed2966bb09c399a67fee9
 }
 
 get_all_player_data <- function(first_week,last_week) {
