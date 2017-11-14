@@ -10,9 +10,9 @@ make_roster_df <- function(df) {
 
 join_roster_ranks <- function(rst_df, rnk_df) {
   rst_df %>% 
-    select(-Points,-Stats) %>% 
-    full_join(rnk_df, by = c('Week','Player','Pos')) %>%
-    filter(!is.na(Team) | Points != 0) %>%
+    select(-Stats) %>% 
+    full_join(rnk_df, by = c('Week','Player','Pos','Points')) %>%
+    filter(!is.na(Team) | Points != 0 | Perc_Owned != 0) %>%
     select(Week, Team, Bench, Slot, Pos, Player, Points, Proj, Rank_Pos, Rank_Ovrl, Perc_Owned, everything())
 }
 
