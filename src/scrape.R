@@ -16,6 +16,7 @@ login <- function(rd) {
   rd$client$setImplicitWaitTimeout(10000)
   webElem2 <- rd$client$findElement('xpath', '//*[@id="login-passwd"]')
   webElem2$sendKeysToElement(list(credentials[1,2], key = 'enter'))
+  rd$client$setImplicitWaitTimeout(4000)
 }
 
 close_session <- function(rd) {

@@ -10,6 +10,7 @@ CREATE TABLE `2017_ff`.`roster_expanded` (
   `points` DECIMAL(8,3) NULL,
   `proj` DECIMAL(8,3) NULL,
   `rank_ovrl` INT NULL,
+  `rank_proj` INT NULL,
   `rank_pos` INT NULL,
   `perc_owned` DECIMAL(4,2) NOT NULL,
   `pass_yds` INT NULL,

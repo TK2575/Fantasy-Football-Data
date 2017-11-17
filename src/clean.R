@@ -195,10 +195,11 @@ extract_plyr_html_list <- function(html_list, mode='offense') {
     new_rows <- html_list[[i]] %>%
       extract_plyr_html()
     if (mode == 'offense') {
-      new_rows <- new_rows[-c(2:5,8,23)]
+      new_rows <- new_rows[-c(2:5,23)]
       colnames(new_rows) <- c('Player',
                               'Points',
                               'Perc_Owned',
+                              'Rank_Proj',
                               'Rank_Ovrl',
                               'Pass_Yds',
                               'Pass_TD',

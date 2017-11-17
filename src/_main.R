@@ -22,7 +22,7 @@ get_week <- function(week_num) {
 
 get_all_player_data <- function(first_week,last_week) {
   df <- data.frame()
-  for (i in seq_along(first_week:last_week)) {
+  for (i in first_week:last_week) {
     df <- get_week_player_data(i) %>%
       bind_rows(df)
   }

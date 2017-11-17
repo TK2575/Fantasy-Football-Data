@@ -18,18 +18,12 @@ join_roster_ranks <- function(rst_df, rnk_df) {
 
 add_ranks <- function(df) {
   df %>%
-    select(-Rank_Ovrl) %>%
-    arrange(desc(Points)) %>%
-    mutate(Rank_Ovrl = rank(desc(Points),
-                            na.last = 'keep',
-                            ties.method = 'min')) %>%
     group_by(Pos) %>%
     mutate(Rank_Pos = rank(Rank_Ovrl,
                            na.last = 'keep',
                            ties.method = 'min')) %>%
     ungroup() %>%
-    select(Week, Pos, Player, Points, Perc_Owned, Rank_Ovrl, Rank_Pos, everything())
-    
+    select(Week, Pos, Player, Points, Perc_Owned, Rank_Ovrl, Rank_Proj, Rank_Pos, everything())
 }
 
 make_match_df <- function(df) {

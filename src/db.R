@@ -70,6 +70,7 @@ get_expanded_roster_data <- function() {
                     'Points',
                     'Proj',
                     'Rank_Ovrl',
+                    'Rank_Proj',
                     'Rank_Pos',
                     'Perc_Owned',
                     'Pass_Yds',
