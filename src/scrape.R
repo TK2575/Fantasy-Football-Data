@@ -75,7 +75,7 @@ scrape_player_data <- function(week) {
 scrape_week <- function(week) {
   rd <- open_session()
   login(rd)
-  results <- map(as.list(1:12), .f = scrape_match_data, rd = rd, week = week)
+  results <- map(as.list(1:14), .f = scrape_match_data, rd = rd, week = week)
   close_session(rd)
   results
 }

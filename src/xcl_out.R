@@ -14,7 +14,7 @@ write_week_to_xl <- function(week_num) {
   pstn_scrng_smry <- get_roster_data() %>% team_pos_summary()
   pstn_scrng_vs_prjctn <- get_roster_data() %>% team_pos_summary(mode='vs_proj')
   rstr <- get_roster_data() %>% filter(Week == week_num)
-  plyr_scrng_smry <- get_roster_data() %>% player_summary()
+  plyr_scrng_smry <- get_expanded_roster_data() %>% ex_player_summary()
   rstr_xpnd <- get_expanded_roster_data() %>% filter(Week == week_num)
   
   data <- list(mtchs, tm_scrng_smry, pstn_scrng_smry, pstn_scrng_vs_prjctn, rstr, plyr_scrng_smry, rstr_xpnd)

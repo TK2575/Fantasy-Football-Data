@@ -40,9 +40,23 @@ team_pos_summary <- function(roster_df,mode='sum') {
 
 player_summary <- function(roster_df) {
   roster_df %>%
+    filter(!is.na(Player)) %>%
     group_by(Pos, Player, Team, Bench) %>%
-    summarize(Total_vs_Proj = sum(Points) - sum(Proj),
-              Weeks = n()) 
+    summarize(Avg_Points = mean(Points),
+              Avg_vs_Proj = round(mean(Points - Proj),1),
+              Weeks = n()) %>%
+  ungroup()
+}
+
+ex_player_summary <- function(x_rstr_df) {
+  x_rstr_df %>%
+    filter(!is.na(Player) & !is.na(Team)) %>%
+    group_by(Pos, Player, Team, Bench) %>%
+    summarize(Avg_Points = mean(Points),
+              Avg_vs_Proj = round(mean(Points - Proj),1),
+              Avg_Pos_Rank = round(mean(Rank_Pos)),
+              Weeks = n()) %>%
+    ungroup()
 }
 
 add_league_average <- function(df) {

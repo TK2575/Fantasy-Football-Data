@@ -17,7 +17,7 @@ gs_update_summaries <- function() {
   get_matches_data() %>% team_summary() %>% gs_full_table(mode='Team Scoring Summary')
   get_roster_data() %>% team_pos_summary() %>% gs_full_table(mode='Position Scoring Summary')
   get_roster_data() %>% team_pos_summary(mode='vs_proj') %>% gs_full_table(mode='Position Scoring vs Projection')
-  get_roster_data() %>% player_summary() %>% gs_full_table(mode='Player Scoring Summary')
+  get_expanded_roster_data() %>% ex_player_summary() %>% gs_full_table(mode='Player Scoring Summary')
 }
 
 gs_add_all_data <- function() {

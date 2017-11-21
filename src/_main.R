@@ -18,6 +18,8 @@ get_week <- function(week_num) {
     add_ranks() 
   
   join_roster_ranks(rst_df,rnk_df) %>% write_expanded_roster()
+  
+  write_week_to_xl(week_num)
 }
 
 get_all_player_data <- function(first_week,last_week) {
