@@ -18,7 +18,7 @@ write_week_to_xl <- function(week_num) {
   plyr_scrng_smry2 <- get_expanded_roster_data() %>% player_scoring_summary()
   rstr_xpnd <- get_expanded_roster_data() %>% filter(Week == week_num)
   
-  data <- list(mtchs, tm_scrng_smry, pstn_scrng_smry, pstn_scrng_vs_prjctn, rstr, plyr_scrng_smry, rstr_xpnd)
+  data <- list(mtchs, tm_scrng_smry, pstn_scrng_smry, pstn_scrng_vs_prjctn, rstr, plyr_scrng_smry, plyr_scrng_smry2, rstr_xpnd)
   
   map2(data, sht_nms, writeWorksheet, object = wb)
   saveWorkbook(wb)
