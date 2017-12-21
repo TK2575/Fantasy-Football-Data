@@ -3,12 +3,13 @@ CREATE TABLE `2017_ff`.`matches` (
   `crte_dttm` TIMESTAMP NOT NULL,
   `week` INT NOT NULL,
   `team` VARCHAR(255) NULL,
-  `win` BOOL NOT NULL,
+  `result` VARCHAR(8) NOT NULL,
   `opponent` VARCHAR(255) NULL,
   `points` DECIMAL(8,3) NULL,
   `net_vs_proj` DECIMAL(8,3) NULL,
   `bench_points` DECIMAL(8,3) NULL,
   `optimal_points` DECIMAL(8,3) NULL,
+  `playoffs` BOOL NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `idmatches_UNIQUE` (`id` ASC));
 DROP TRIGGER IF EXISTS `2017_ff`.`matches_BEFORE_INSERT`;

@@ -110,15 +110,15 @@ get_expanded_roster_data <- function() {
 }
 
 get_matches_data <- function() {
-  df <- get_data('matches') %>% num_to_lgl('win')
-  colnames(df) <- c('Week', 'Team', 'Win', 'Opponent', 'Points', 'Net_vs_Proj', 'Bench_Points', 'Optimal_Points')
+  df <- get_data('matches') %>% num_to_lgl('playoffs')
+  colnames(df) <- c('Week', 'Team', 'Win', 'Opponent', 'Points', 'Net_vs_Proj', 'Bench_Points', 'Optimal_Points', 'Playoffs')
   df
 }
 
 get_raw_data <- function() {
   df <- get_data('raw_df')
   df <- num_to_lgl(df, c('win','bench'))
-  colnames(df) <- c('Week','Team','Win','Opponent','Pos','Bench','Player','Proj','Points','Stats')
+  colnames(df) <- c('Week','Team','Win','Opponent','Slot','Pos','Bench','Player','Proj','Points','Stats')
   df
 }
 

@@ -11,17 +11,18 @@ clean_match <- function(html) {
   m_df <- extract_html(html, 'matchup')
   b_df <- extract_html(html, 'bench')
   
-  r <- init_bind(m_df, b_df, teams) %>% add_win()
+  r <- init_bind(m_df, b_df, teams) %>% add_result()
   
-  c_nm <- c('Pos','Bench','Team','Win','Opponent','Player','Proj','Points','Stats')
+  c_nm <- c('Pos','Bench','Team','Result','Opponent','Player','Proj','Points','Stats')
   
-  xr <- r %>% select(Pos, Bench, Team.x, Win.x, Team.y, Player.x, Proj.x, Pts.x, Stats.x)
-  yr <- r %>% select(Pos, Bench, Team.y, Win.y, Team.x, Player.y, Proj.y, Pts.y, Stats.y)
+  xr <- r %>% select(Pos, Bench, Team.x, Result.x, Team.y, Player.x, Proj.x, Pts.x, Stats.x)
+  yr <- r %>% select(Pos, Bench, Team.y, Result.y, Team.x, Player.y, Proj.y, Pts.y, Stats.y)
   
   colnames(xr) <- c_nm
   colnames(yr) <- c_nm
   
-  xr %>% bind_rows(yr) %>% extract_all_pos()
+  # filtering out rows where team is NA due to bye weeks
+  xr %>% bind_rows(yr) %>% extract_all_pos() %>% filter(!is.na(Team))
 }
 
 clean_week <- function(html_list,week_num) {
@@ -29,7 +30,7 @@ clean_week <- function(html_list,week_num) {
     ldply(data.frame) %>% 
     as_tibble() %>% 
     mutate(Week = week_num) %>% 
-    select(Week, Team, Win, Opponent, Slot, Pos, Bench, Player, Proj, Points, Stats) %>% 
+    select(Week, Team, Result, Opponent, Slot, Pos, Bench, Player, Proj, Points, Stats) %>% 
     distinct(.keep_all = TRUE)
 }
 
@@ -162,19 +163,25 @@ init_bind <- function(m_df, b_df, teams) {
     select(Pos, Bench, Team.x, Player.x, Proj.x, Pts.x, Stats.x, Team.y, Player.y, Proj.y, Pts.y, Stats.y)
 }
 
-add_win <- function(df) {
+add_result <- function(df) {
   scores <- df %>% filter(Pos == 'TOTAL', Bench == FALSE) %>% select(Pts.x, Pts.y)
   
-  x <- FALSE
-  y <- FALSE
+  x <- 'Tie'
+  y <- 'Tie'
   
-  if(scores$Pts.x > scores$Pts.y) {
-    x <- TRUE
+  if (is.na(scores$Pts.x) | is.na(scores$Pts.y)) {
+    x <- NA
+    y <- NA
+  }
+  if (scores$Pts.x > scores$Pts.y) {
+    x <- 'Win'
+    y <- 'Loss'
   } else if (scores$Pts.y > scores$Pts.x) {
-    y <- TRUE
+    y <- 'Win'
+    x <- 'Loss'
   }
   
-  df %>% mutate(Win.x = x, Win.y = y)
+  df %>% mutate(Result.x = x, Result.y = y)
 }
 
 clean_week_ranks <- function(html_list,week) {

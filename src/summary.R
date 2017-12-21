@@ -125,3 +125,60 @@ add_league_average <- function(df) {
   la$Team <- 'League Average'
   df %>% bind_rows(la) %>% mutate_if(is.numeric, funs(round(., 4)))
 }
+
+adv_team_summary <- function(matches_df) {
+  result <- matches_df %>%
+    group_by(Week) %>%
+    mutate(Avg_Points = mean(Points)) %>%
+    ungroup() %>%
+    mutate(Percentile = rank(Points)/n(),
+           Score_Plus = Points/Avg_Points,
+           Score_Plus_Percentile = rank(Score_Plus)/n()) %>%
+    group_by(Team) %>%
+    summarize(Wins = sum(Win),
+              SIW = sum(Percentile),
+              SIW_Plus = sum(Score_Plus_Percentile),
+              Points_per_Game = mean(Points),
+              STDEV = sd(Points),
+              Luck_Wins = Wins-SIW) %>%
+    arrange(desc(Wins), desc(SIW))
+  
+  lg_avgs <- result %>% 
+    select(SIW, Points_per_Game, STDEV) %>%
+    summarize_all(.funs = c(Avg='mean', SD='sd'))
+  
+  #' Winning probability (for upcoming games, requires scrape of upcoming schedule)
+  #' Opponent score
+  #' Opponent SIW
+  #' Opponent Percentile
+  #' 
+  #' 
+  #' Points z-score = (pts per game - league avg pts per game) / league sd of sd
+  #' SIW z-score = (SIW - league average SIW) / league sd of SIW
+  #' Oppenent SIW = sum of opponent percentile
+  #' Opponent Pts/Week = mean opponent pts
+  #' 
+  #' Remaining strength of schedule = 
+  #' leage average pts/game x total number of teams (14) - team's pts/game - opponent pts/game x (max) weeks 
+  #' /divided by/
+  #' 13 - (max) weeks
+  #' 
+  #' SIW/game = average percentile
+  #' wSIW = mean(SIW) (note, doesn't consider week rating, neither does wSIW)
+  #' Total points = sum points
+  #' Projected Wins = Wins + sum of remaining win probability
+  #' Opponent SIW vs. actual wins = Number of weeks - wins - opponent SIW
+  #' 
+  #' Questions for Faust
+  #' 1) variations in week weighting (skip, don't want wSIW)
+  #' 2) adjustment to percentile calc
+  #' 3) what of this do we actually want? (don't want wSIW)
+
+  
+  result[,-1:-2] <- round(result[,-1:-2],1)
+  result
+}
+
+avg_and_sd <- function(df) {
+  
+}

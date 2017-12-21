@@ -3,7 +3,7 @@ CREATE TABLE `2017_ff`.`raw_df` (
   `crte_dttm` TIMESTAMP NOT NULL,
   `week` INT NOT NULL,
   `team` VARCHAR(255) NULL,
-  `win` BOOL NOT NULL,
+  `result` VARCHAR(8) NOT NULL,
   `opponent` VARCHAR(255) NULL,
   `slot` VARCHAR(8) NOT NULL,
   `pos` VARCHAR(8) NOT NULL,

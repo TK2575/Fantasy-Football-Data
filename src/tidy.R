@@ -28,7 +28,7 @@ add_ranks <- function(df) {
 
 make_match_df <- function(df) {
   results <- df %>%
-    select(Week, Team, Win, Opponent) %>%
+    select(Week, Team, Result, Opponent) %>%
     distinct(.keep_all = T)
   
   tot_points <- df %>%
@@ -83,8 +83,8 @@ make_match_df <- function(df) {
   results %>% 
     left_join(tot_points,by=keys) %>%
     left_join(bench_points,by=keys) %>%
-    left_join(optimal_points,by=keys)
-      
+    left_join(optimal_points,by=keys) %>% 
+    mutate(Playoffs = ifelse(Week > 13,T,F))
 } 
 
 name_column <- function(pos) {
