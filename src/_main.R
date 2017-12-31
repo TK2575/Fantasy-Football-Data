@@ -24,8 +24,8 @@ get_week <- function(week_num) {
   print('Writing expanded roster data to database...')
   join_roster_ranks(rst_df,rnk_df) %>% write_expanded_roster()
   
-  print('Writing week data to excel...')
-  write_week_to_xl(week_num)
+  # print('Writing week data to excel...')
+  # write_week_to_xl(week_num)
 }
 
 get_all_player_data <- function(first_week,last_week) {
