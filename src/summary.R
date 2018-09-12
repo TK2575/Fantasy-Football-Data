@@ -11,7 +11,7 @@ team_summary <- function(matches_df) {
               Avg_vs_Proj = mean(Net_vs_Proj),
               Avg_Optimal = mean(Optimal_Points),
               Lineup_efficiency = sum(Points)/sum(Optimal_Points),
-              Wins = sum(Win)) %>%
+              Wins = sum(dplyr::if_else(Win=="Win",1,0))) %>%
     add_league_average()
 }
 
@@ -40,7 +40,7 @@ team_pos_summary <- function(roster_df,mode='sum') {
 
 team_slot_summary <- function(roster_df, mode='sum') {
   sngl_slts <- roster_df %>%
-    filter(Slot %in% c('QB','TE','W/R/T','K','DEF'), Bench == F)
+    dplyr::filter(Slot %in% c('QB','TE','W/R/T','K','DEF'), Bench == F)
   
   rb <- roster_df %>% 
     split_slots('RB')
@@ -75,8 +75,8 @@ split_slots <- function(rstr_df, mode) {
     filter(Slot == mode)
   
   rstr_df <- arrange(rstr_df, Team, Week)
-  odd <- rstr_df[c(T,F),]
-  even <- rstr_df[c(F,T),]
+  odd <- rstr_df[c(seq(1,nrow(rstr_df),2)), ]
+  even <- rstr_df[c(seq(2,nrow(rstr_df),2)), ]
   
   odd[['Slot']] <- paste0(mode,1)
   even[['Slot']] <- paste0(mode,2)
