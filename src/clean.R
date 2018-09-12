@@ -147,12 +147,12 @@ prep_bind <- function(df) {
 }
 
 get_teams <- function(html) {
-  teams_x <- '//*[contains(concat( " ", @class, " " ), concat( " ", "F-link", " " ))]/text()'
+  teams_x <- '//*[contains(concat( " ", @class, " " ), concat( " ", "F-link", " " ))]'
   
   teams <-
     html %>% read_html %>% html_nodes(xpath=teams_x) %>% html_text()
   
-  teams[1:2]
+  teams[c(1,3)]
 }
 
 init_bind <- function(m_df, b_df, teams) {
@@ -224,7 +224,7 @@ extract_plyr_html_list <- function(html_list, mode='offense') {
       df <- df %>%
         bind_rows(new_rows)
     } else if (mode == 'k') {
-      new_rows <- new_rows[-c(2:5,8,22)]
+      new_rows <- new_rows[c(1,6:7,9:15)]
       colnames(new_rows) <- c('Player',
                               'Points',
                               'Perc_Owned',
@@ -234,13 +234,7 @@ extract_plyr_html_list <- function(html_list, mode='offense') {
                               'FG_30-39',
                               'FG_40-49',
                               'FG_50+',
-                              'FGM_0-19',
-                              'FGM_20-29',
-                              'FGM_30-39',
-                              'FGM_40-49',
-                              'FGM_50+',
-                              'PAT',
-                              'PAT_Miss')
+                              'PAT')
       df <- df %>%
         bind_rows(new_rows)
     } else if (mode == 'def') {

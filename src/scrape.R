@@ -2,15 +2,15 @@
 library('RSelenium')
 library('purrr')
 
-base_url <- 'https://football.fantasysports.yahoo.com/f1/25989/'
+base_url <- 'https://football.fantasysports.yahoo.com/f1/61536/'
 
 open_session <- function() {
-  rsDriver(verbose = FALSE)  
+  rsDriver(verbose = FALSE, browser = "chrome", geckover = NULL, iedrver = NULL)  
 }
 
 login <- function(rd) {
   credentials <- read.csv("conf/config.csv", stringsAsFactors = FALSE)
-  rd$client$navigate('https://football.fantasysports.yahoo.com/f1/25989/12')
+  rd$client$navigate('https://football.fantasysports.yahoo.com/f1/61536/6')
   webElem <- rd$client$findElement('xpath', '//*[@id="login-username"]')
   webElem$sendKeysToElement(list(credentials[1,1], key = "enter"))
   rd$client$setImplicitWaitTimeout(10000)
@@ -21,7 +21,7 @@ login <- function(rd) {
 
 close_session <- function(rd) {
   rd$client$close()
-  rd$server$stop()  
+  #rd$server$stop()  
 }
 
 match_url <- function(week,team_id) {

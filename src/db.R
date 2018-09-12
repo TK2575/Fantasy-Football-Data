@@ -125,11 +125,11 @@ get_raw_data <- function() {
 connect <- function() {
   dbConnect(
     RMySQL::MySQL(),
-    dbname = "2017_ff",
+    dbname = "2018_ff",
     host = "localhost",
     port = 3306,
-    user = "2017_ff",
-    password = "2017_ff"
+    user = "2018_ff",
+    password = "2018_ff"
   )
 }
 
