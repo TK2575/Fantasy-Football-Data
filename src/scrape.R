@@ -2,26 +2,33 @@
 library('RSelenium')
 library('purrr')
 
-base_url <- 'https://football.fantasysports.yahoo.com/f1/61536/'
+base_url <- "https://football.fantasysports.yahoo.com/f1/61536/"
 
 open_session <- function() {
-  rsDriver(verbose = FALSE, browser = "chrome", geckover = NULL, iedrver = NULL)  
+  rd <- remoteDriver(
+    remoteServerAddr = "localhost",
+    port = 4445L
+  )
+  
+  rd$open()
+  rd
 }
 
 login <- function(rd) {
   credentials <- read.csv("conf/config.csv", stringsAsFactors = FALSE)
-  rd$client$navigate('https://football.fantasysports.yahoo.com/f1/61536/6')
-  webElem <- rd$client$findElement('xpath', '//*[@id="login-username"]')
+  rd$navigate(base_url)
+  webElem <- rd$findElement('xpath', '//*[@id="login-username"]')
   webElem$sendKeysToElement(list(credentials[1,1], key = "enter"))
-  rd$client$setImplicitWaitTimeout(10000)
-  webElem2 <- rd$client$findElement('xpath', '//*[@id="login-passwd"]')
+  Sys.sleep(10)
+  #rd$setImplicitWaitTimeout(10000)
+  webElem2 <- rd$findElement('xpath', '//*[@id="login-passwd"]')
   webElem2$sendKeysToElement(list(credentials[1,2], key = 'enter'))
-  rd$client$setImplicitWaitTimeout(4000)
+  #rd$setImplicitWaitTimeout(4000)
+  Sys.sleep(10)
 }
 
 close_session <- function(rd) {
-  rd$client$close()
-  #rd$server$stop()  
+  rd$close()
 }
 
 match_url <- function(week,team_id) {
@@ -29,11 +36,11 @@ match_url <- function(week,team_id) {
 }
 
 source_page <- function(rd) {
-  rd$client$getPageSource()[[1]][1]
+  rd$getPageSource()[[1]][1]
 }
 
 scrape_match_data <- function(rd,week,team_id) {
-  rd$client$navigate(match_url(week,team_id)) 
+  rd$navigate(match_url(week,team_id)) 
   source_page(rd)
 }
 
@@ -47,7 +54,7 @@ player_url <- function(pos,week,page) {
 }
 
 scrape_player_page <- function(rd,pos,week,page) {
-  rd$client$navigate(player_url(pos,week,page))
+  rd$navigate(player_url(pos,week,page))
   source_page(rd)
 }
 
