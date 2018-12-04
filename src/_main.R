@@ -1,7 +1,7 @@
 #' Main method for calling other R scripts in this project
 
 setwd("src")
-sources <- c('scrape.R', 'clean.R', 'tidy.R', 'db.R', 'gs_out.R', 'summary.R')
+sources <- c('scrape.R', 'clean.R', 'tidy.R', 'db.R', 'gs_out.R', 'summary.R', 'csv_out.R')
 lapply(sources, source)
 setwd("../")
 
