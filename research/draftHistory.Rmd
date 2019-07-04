@@ -49,24 +49,37 @@ Maybe later worry about joining with some then-projected value. Some things to c
 3. Probably drop Kickers, maybe DEF too
 4. Verify price is numeric (integer)
 
+```{r adp_vs_tier}
+adp_vs_tier <- draft_2017_raw %>% 
+  filter(!is.na(adp)) %>%
+  mutate(tier = as_factor(tier)) 
+
+adp_vs_tier %>% 
+  filter(!is.na(adp)) %>% 
+  mutate(tier = as_factor(tier)) %>% 
+  ggplot(aes(tier, adp, color=position)) +
+  geom_point() +
+  scale_y_reverse() +
+  facet_wrap(~ position)
+
+adp_vs_tier %>% 
+  ggplot(aes(tier, fill = position)) +
+  geom_bar(stat = "count")
+
+adp_vs_tier %>% 
+  group_by(tier, position) %>% 
+  summarize(n = n()) %>% 
+  ungroup() %>% 
+  group_by(tier)
+  mutate(perc = n / sum(n) * 100) %>% 
+  arrange(tier, position, n)
+```
+
 ```{r clean_old_drafts}
 draft_2015 <- drafts_old_raw %>% 
   filter(year == 2015) %>% 
   select(-pick) %>% 
   mutate(price = price %>% str_sub(2) %>% as.numeric)
-
-draft_2015 %>% 
-  filter(!is.na(adp)) %>% 
-  ggplot(aes(adp, position, color=position)) +
-  geom_point() 
-
-draft_2017_raw %>% 
-  filter(!is.na(spent)) %>% 
-  mutate(tier = as_factor(tier),
-         spent = spent %>% str_sub(2) %>% as.numeric) %>% 
-  ggplot(aes(spent, position, color=tier)) +
-  geom_point() +
-  scale_x_reverse()
-
-draft_
 ```
+
+
