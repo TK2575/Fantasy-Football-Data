@@ -1,0 +1,370 @@
+Player,Rating,Value,Tier,Position,Target,Team,Price
+Antonio Brown PIT (8),1, $63.00 ,TIER 1,WR,Premium,Floppity Boppity TDs, $71.00 
+Julio Jones ATL (11),2, $61.00 ,TIER 1,WR,Premium,Post Traumatic SD, $70.00 
+Odell Beckham Jr. NYG (8),3, $56.00 ,TIER 1,WR,Premium,Citadel Cadets, $67.00 
+David Johnson ARI (9),5, $46.00 ,TIER 1,RB,Premium,Gone The Patron, $62.00 
+Lamar Miller HOU (9),6, $47.00 ,TIER 1,RB,Yes (Premium),Geno-mics, $61.00 
+Todd Gurley LA (8),7, $47.00 ,TIER 1,RB,Premium,Dak and Jaxter, $63.00 
+Jamaal Charles KC (5),9, $44.00 ,TIER 1,RB,No,Gone The Patron, $46.00 
+Rob Gronkowski NE (9),22, $32.00 ,TIER 1,TE,Premium,Harambe's Heroes, $49.00 
+Aaron Rodgers GB (4),50, $19.00 ,TIER 1,QB,Premium,Matthews Grag, $36.00 
+Russell Wilson SEA (5),68, $12.00 ,TIER 1,QB,Value,My Lofty Pony, $27.00 
+A.J. Green CIN (9),4, $47.00 ,TIER 2,WR,Premium,Build a Wall, $51.00 
+Dez Bryant DAL (7),8, $43.00 ,TIER 2,WR,No,Dak and Jaxter, $43.00 
+Adrian Peterson MIN (6),10, $46.00 ,TIER 2,RB,Premium,Harambe's Heroes, $61.00 
+Le'Veon Bell PIT (8),10, $45.00 ,TIER 2,RB,Premium,Citadel Cadets, $49.00 
+Brandon Marshall NYJ (11),12, $37.00 ,TIER 2,WR,Premium,Build a Wall, $50.00 
+Allen Robinson JAC (5),13, $47.00 ,TIER 2,WR,Premium,G. Jennings Retired, $50.00 
+Ezekiel Elliott DAL (7),13, $37.00 ,TIER 2,RB,Premium,Revenge of the Goose, $60.00 
+DeAndre Hopkins HOU (9),15, $36.00 ,TIER 2,WR,Premium,Matthews Grag, $60.00 
+LeSean McCoy BUF (10),16, $36.00 ,TIER 2,RB,Premium,G. Jennings Retired, $48.00 
+Mike Evans TB (6),18, $37.00 ,TIER 2,WR,Premium,My Lofty Pony, $46.00 
+Alshon Jeffery CHI (9),19, $32.00 ,TIER 2,WR,Premium,Revenge of the Goose, $44.00 
+Jordan Reed WAS (9),34, $20.00 ,TIER 2,TE,Value,Floppity Boppity TDs, $28.00 
+Cam Newton CAR (7),61, $14.00 ,TIER 2,QB,,Manning-Faced God, $38.00 
+Drew Brees NO (5),74, $13.00 ,TIER 2,QB,Premium,Gone The Patron, $35.00 
+Mark Ingram NO (5),17, $33.00 ,TIER 3,RB,Premium,G. Jennings Retired, $47.00 
+Devonta Freeman ATL (11),20, $34.00 ,TIER 3,RB,Premium,Manning-Faced God, $50.00 
+Keenan Allen SD (11),20, $27.00 ,TIER 3,WR,Value,Manning-Faced God, $41.00 
+Demaryius Thomas DEN (11),22, $34.00 ,TIER 3,WR,Premium,Harambe's Heroes, $39.00 
+Doug Martin TB (6),24, $31.00 ,TIER 3,RB,Premium,Post Traumatic SD, $39.00 
+Eddie Lacy GB (4),25, $29.00 ,TIER 3,RB,Premium,James K Polk's Ass, $39.00 
+Sammy Watkins BUF (10),26, $31.00 ,TIER 3,WR,Premium,Geno-mics, $39.00 
+Jordy Nelson GB (4),27, $26.00 ,TIER 3,WR,,Manning-Faced God, $43.00 
+Brandin Cooks NO (5),28, $23.00 ,TIER 3,WR,Value,My Lofty Pony, $41.00 
+Amari Cooper OAK (10),30, $28.00 ,TIER 3,WR,Premium,Matthews Grag, $40.00 
+Ryan Mathews PHI (4),34, $27.00 ,TIER 3,RB,Yes (Premium),My Lofty Pony, $15.00 
+Greg Olsen CAR (7),72, $14.00 ,TIER 3,TE,Premium,G. Jennings Retired, $21.00 
+Gary Barnidge CLE (13),75, $11.00 ,TIER 3,TE,,Revenge of the Goose, $13.00 
+Travis Kelce KC (5),76, $10.00 ,TIER 3,TE,,James K Polk's Ass, $15.00 
+Andrew Luck IND (10),77, $12.00 ,TIER 3,QB,Yes (Premium),Harambe's Heroes, $27.00 
+Coby Fleener NO (5),80, $9.00 ,TIER 3,TE,Yes,Post Traumatic SD, $7.00 
+Carson Palmer ARI (9),91, $7.00 ,TIER 3,QB,Yes,Revenge of the Goose, $24.00 
+Latavius Murray OAK (10),29, $22.00 ,TIER 4,RB,Value,Floppity Boppity TDs, $25.00 
+T.Y. Hilton IND (10),31, $18.00 ,TIER 4,WR,Value,Gone The Patron, $39.00 
+Jeremy Maclin KC (5),32, $19.00 ,TIER 4,WR,Value,Revenge of the Goose, $22.00 
+Julian Edelman NE (9),33, $18.00 ,TIER 4,WR,Value,Post Traumatic SD, $26.00 
+C.J. Anderson DEN (11),36, $18.00 ,TIER 4,RB,Value,Build a Wall, $34.00 
+Thomas Rawls SEA (5),42, $21.00 ,TIER 4,RB,,Revenge of the Goose, $25.00 
+Jonathan Stewart CAR (7),43, $19.00 ,TIER 4,RB,Yes,Citadel Cadets, $27.00 
+DeMarco Murray TEN (13),45, $16.00 ,TIER 4,RB,Value,Matthews Grag, $21.00 
+Jeremy Langford CHI (9),49, $17.00 ,TIER 4,RB,,Dak and Jaxter, $30.00 
+Jeremy Hill CIN (9),50, $12.00 ,TIER 4,RB,Yes,James K Polk's Ass, $23.00 
+Carlos Hyde SF (8),54, $20.00 ,TIER 4,RB,Premium,James K Polk's Ass, $28.00 
+Danny Woodhead SD (11),55, $16.00 ,TIER 4,RB,Yes,Build a Wall, $9.00 
+Zach Ertz PHI (4),87, $7.00 ,TIER 4,TE,,James K Polk's Ass, $6.00 
+Antonio Gates SD (11),89, $8.00 ,TIER 4,TE,Yes,,
+Delanie Walker TEN (13),90, $8.00 ,TIER 4,TE,No,My Lofty Pony, $7.00 
+Eric Ebron DET (10),92, $10.00 ,TIER 4,TE,Yes (Premium),Dak and Jaxter, $3.00 
+Eli Manning NYG (8),93, $11.00 ,TIER 4,QB,Premium,Dak and Jaxter, $13.00 
+Dwayne Allen IND (10),97, $6.00 ,TIER 4,TE,Yes,,
+Blake Bortles JAC (5),102, $8.00 ,TIER 4,QB,No,Build a Wall, $3.00 
+Philip Rivers SD (11),104, $6.00 ,TIER 4,QB,,My Lofty Pony, $20.00 
+Ben Roethlisberger PIT (8),104, $5.00 ,TIER 4,QB,No,G. Jennings Retired, $20.00 
+Tyler Eifert CIN (9),111, $1.00 ,TIER 4,TE,No,Floppity Boppity TDs, $2.00 
+Larry Fitzgerald ARI (9),37, $20.00 ,TIER 5,WR,Value,Geno-mics, $14.00 
+Michael Floyd ARI (9),37, $18.00 ,TIER 5,WR,Yes,My Lofty Pony, $14.00 
+Jordan Matthews PHI (4),39, $21.00 ,TIER 5,WR,,,
+Jarvis Landry MIA (8),40, $22.00 ,TIER 5,WR,Yes,Floppity Boppity TDs, $29.00 
+Golden Tate DET (10),41, $20.00 ,TIER 5,WR,,Floppity Boppity TDs, $23.00 
+Randall Cobb GB (4),44, $19.00 ,TIER 5,WR,,Geno-mics, $37.00 
+Eric Decker NYJ (11),46, $26.00 ,TIER 5,WR,Yes (Premium),Post Traumatic SD, $26.00 
+Kelvin Benjamin CAR (7),47, $18.00 ,TIER 5,WR,No,Dak and Jaxter, $24.00 
+Marvin Jones DET (10),47, $18.00 ,TIER 5,WR,Yes,Build a Wall, $9.00 
+Doug Baldwin SEA (5),52, $20.00 ,TIER 5,WR,Premium,James K Polk's Ass, $19.00 
+John Brown ARI (9),52, $14.00 ,TIER 5,WR,Yes,Matthews Grag, $15.00 
+Matt Forte NYJ (11),56, $18.00 ,TIER 5,RB,No,Citadel Cadets, $29.00 
+Giovani Bernard CIN (9),57, $14.00 ,TIER 5,RB,,Build a Wall, $14.00 
+Frank Gore IND (10),60, $16.00 ,TIER 5,RB,Premium,Geno-mics, $13.00 
+Matt Jones WAS (9),65, $24.00 ,TIER 5,RB,Premium,Manning-Faced God, $12.00 
+Julius Thomas JAC (5),106, $6.00 ,TIER 5,TE,,Citadel Cadets, $4.00 
+Jameis Winston TB (6),112, $4.00 ,TIER 5,QB,Yes,Build a Wall, $5.00 
+Ryan Fitzpatrick NYJ (11),116, $2.00 ,TIER 5,QB,Yes,Post Traumatic SD, $1.00 
+Andy Dalton CIN (9),117, $5.00 ,TIER 5,QB,Yes,Matthews Grag, $2.00 
+Tom Brady NE (9),118, $3.00 ,TIER 5,QB,Value,James K Polk's Ass, $11.00 
+Matthew Stafford DET (10),119, $4.00 ,TIER 5,QB,Yes,Geno-mics, $17.00 
+Jason Witten DAL (7),119, $2.00 ,TIER 5,TE,Value,Gone The Patron, $6.00 
+Derek Carr OAK (10),121, $3.00 ,TIER 5,QB,Value,James K Polk's Ass, $4.00 
+Tony Romo DAL (7),121, $3.00 ,TIER 5,QB,No,James K Polk's Ass, $6.00 
+Tyrod Taylor BUF (10),124, $4.00 ,TIER 5,QB,,Citadel Cadets, $3.00 
+Matt Ryan ATL (11),125, $4.00 ,TIER 5,QB,,,
+Vance McDonald SF (8),126, $3.00 ,TIER 5,TE,Value,,
+Kirk Cousins WAS (9),128, $2.00 ,TIER 5,QB,Value,James K Polk's Ass, $2.00 
+Zach Miller CHI (9),133, $3.00 ,TIER 5,TE,,,
+Marcus Mariota TEN (13),134, $1.00 ,TIER 5,QB,Value,,
+Will Tye NYG (8),142, $2.00 ,TIER 5,TE,,,
+Melvin Gordon SD (11),57, $17.00 ,TIER 6,RB,Yes (Premium),My Lofty Pony, $17.00 
+DeSean Jackson WAS (9),59, $25.00 ,TIER 6,WR,Premium,Post Traumatic SD, $17.00 
+Emmanuel Sanders DEN (11),62, $14.00 ,TIER 6,WR,,G. Jennings Retired, $4.00 
+Donte Moncrief IND (10),63, $22.00 ,TIER 6,WR,Yes (Premium),James K Polk's Ass, $21.00 
+Willie Snead NO (5),64, $10.00 ,TIER 6,WR,Yes,,
+Tyler Lockett SEA (5),66, $11.00 ,TIER 6,WR,Value,James K Polk's Ass, $5.00 
+Arian Foster MIA (8),67, $11.00 ,TIER 6,RB,,James K Polk's Ass, $15.00 
+T.J. Yeldon JAC (5),68, $13.00 ,TIER 6,RB,Yes,Post Traumatic SD, $5.00 
+Michael Crabtree OAK (10),70, $12.00 ,TIER 6,WR,,Harambe's Heroes, $5.00 
+DeVante Parker MIA (8),71, $11.00 ,TIER 6,WR,,Harambe's Heroes, $1.00 
+Allen Hurns JAC (5),73, $15.00 ,TIER 6,WR,No,Matthews Grag, $3.00 
+Duke Johnson CLE (13),77, $23.00 ,TIER 6,RB,,Floppity Boppity TDs, $7.00 
+Isaiah Crowell CLE (13),83, $12.00 ,TIER 6,RB,Yes (Premium),,
+Ameer Abdullah DET (10),84, $5.00 ,TIER 6,RB,Value,Floppity Boppity TDs, $3.00 
+Charles Sims TB (6),85, $13.00 ,TIER 6,RB,Premium (Handcuff),,
+DeAngelo Williams PIT (8),87, $8.00 ,TIER 6,RB,Handcuff,Citadel Cadets, $6.00 
+Chris Ivory JAC (5),93, $7.00 ,TIER 6,RB,No,Build a Wall, $4.00 
+Theo Riddick DET (10),96, $4.00 ,TIER 6,RB,Yes,,
+Justin Forsett BAL (8),98, $8.00 ,TIER 6,RB,Premium,,
+Rashad Jennings NYG (8),100, $3.00 ,TIER 6,RB,Value,Matthews Grag, $8.00 
+Bilal Powell  NYJ (11),101, $5.00 ,TIER 6,RB,Value,,
+Colin Kaepernick SF (8),137, $2.00 ,TIER 6,QB,No,,
+Ryan Tannehill MIA (8),139, $1.00 ,TIER 6,QB,Value,,
+Jay Cutler CHI (9),140, $6.00 ,TIER 6,QB,Premium,,
+Virgil Green DEN (11),143, $2.00 ,TIER 6,TE,,,
+Martellus Bennett NE (9),144, $5.00 ,TIER 6,TE,Premium,Geno-mics, $11.00 
+Alex Smith KC (5),146, $1.00 ,TIER 6,QB,Yes,,
+Joe Flacco BAL (8),153, $1.00 ,TIER 6,QB,Value,Geno-mics, $2.00 
+Charles Clay BUF (10),154, $1.00 ,TIER 6,TE,Value,,
+Kyle Rudolph MIN (6),159, $1.00 ,TIER 6,TE,Value,,
+Clive Walford OAK (10),165, $2.00 ,TIER 6,TE,,,
+Torrey Smith SF (8),79, $13.00 ,TIER 7,WR,Premium,,
+Kamar Aiken BAL (8),81, $9.00 ,TIER 7,WR,,,
+Sterling Shepard NYG (8),82, $8.00 ,TIER 7,WR,Value,James K Polk's Ass, $3.00 
+Kevin White CHI (9),86, $13.00 ,TIER 7,WR,Premium,Revenge of the Goose, $4.00 
+Vincent Jackson TB (6),95, $8.00 ,TIER 7,WR,Yes,Post Traumatic SD, $2.00 
+Mohamed Sanu ATL (11),99, $6.00 ,TIER 7,WR,,,
+Terrance Williams DAL (7),102, $4.00 ,TIER 7,WR,No,,
+Josh Gordon CLE (13),107, $7.00 ,TIER 7,WR,No,Dak and Jaxter, $13.00 
+Markus Wheaton PIT (8),108, $6.00 ,TIER 7,WR,Yes,,
+Rishard Matthews TEN (13),109, $5.00 ,TIER 7,WR,,,
+Stefon Diggs MIN (6),110, $8.00 ,TIER 7,WR,,,
+Devin Funchess CAR (7),113, $4.00 ,TIER 7,WR,Value,,
+Travis Benjamin SD (11),114, $6.00 ,TIER 7,WR,Premium,,
+Corey Coleman CLE (13),115, $1.00 ,TIER 7,WR,Value,,
+Darren Sproles PHI (4),121, $2.00 ,TIER 7,RB,Yes,Harambe's Heroes, $3.00 
+Kendall Wright TEN (13),126, $4.00 ,TIER 7,WR,,,
+Terrelle Pryor CLE (13),129, $1.00 ,TIER 7,WR,Value,,
+Laquon Treadwell MIN (6),130, $2.00 ,TIER 7,WR,Value,,
+James White NE (9),131, $3.00 ,TIER 7,RB,,,
+Shane Vereen NYG (8),132, $4.00 ,TIER 7,RB,,G. Jennings Retired, $2.00 
+LeGarrette Blount NE (9),135, $2.00 ,TIER 7,RB,Value,Harambe's Heroes, $7.00 
+Phillip Dorsett IND (10),136, $1.00 ,TIER 7,WR,Value,,
+Rueben Randle PHI (4),138, $1.00 ,TIER 7,WR,No,,
+Sammie Coates PIT (8),145, $2.00 ,TIER 7,WR,,,
+Jay Ajayi MIA (8),147, $1.00 ,TIER 7,RB,Value (Handcuff),,
+Javorius Allen BAL (8),150, $1.00 ,TIER 7,RB,Value,Manning-Faced God, $7.00 
+Robert Griffin CLE (13),162, $2.00 ,TIER 7,QB,,,
+Brock Osweiler HOU (9),163, $1.00 ,TIER 7,QB,,,
+Mark Sanchez DEN (11),166, $1.00 ,TIER 7,QB,,,
+Blaine Gabbert SF (8),169, $2.00 ,TIER 7,QB,,,
+Benjamin Watson BAL (8),170, $1.00 ,TIER 7,TE,,,
+Sam Bradford PHI (4),175, $2.00 ,TIER 7,QB,,,
+Teddy Bridgewater MIN (6),178, $4.00 ,TIER 7,QB,,,
+Jordan Cameron MIA (8),178, $1.00 ,TIER 7,TE,,,
+Jared Cook GB (4),184, $1.00 ,TIER 7,TE,,,
+Ladarius Green PIT (8),192, $1.00 ,TIER 7,TE,,,
+Austin Seferian-Jenkins TB (6),200, $1.00 ,TIER 7,TE,,,
+Brian Hoyer CHI (9),201, $1.00 ,TIER 7,QB,,,
+Carson Wentz PHI (4),201, $1.00 ,TIER 7,QB,,,
+Case Keenum LA (8),201, $1.00 ,TIER 7,QB,,,
+Geno Smith NYJ (11),201, $1.00 ,TIER 7,QB,,,
+Jared Goff LA (8),201, $1.00 ,TIER 7,QB,,,
+Josh McCown CLE (13),201, $1.00 ,TIER 7,QB,,,
+Maxx Williams BAL (8),201, $1.00 ,TIER 7,TE,,,
+Nick Foles KC (5),201, $1.00 ,TIER 7,QB,,,
+Paxton Lynch DEN (11),201, $1.00 ,TIER 7,QB,,,
+Tyler Boyd CIN (9),141, $2.00 ,TIER 8,WR,,,
+Tavon Austin LA (8),148, $2.00 ,TIER 8,WR,,Citadel Cadets, $2.00 
+Mike Wallace BAL (8),149, $1.00 ,TIER 8,WR,Value,,
+Chris Hogan NE (9),151, $2.00 ,TIER 8,WR,,,
+Pierre Garcon WAS (9),151, $1.00 ,TIER 8,WR,Value,,
+Brandon LaFell CIN (9),155, $1.00 ,TIER 8,WR,Value,,
+Dorial Green-Beckham PHI (4),155, $1.00 ,TIER 8,WR,No,Citadel Cadets, $2.00 
+Derrick Henry TEN (13),157, $1.00 ,TIER 8,RB,Value (Handcuff),Build a Wall, $3.00 
+Dion Lewis NE (9),158, $1.00 ,TIER 8,RB,Value,,
+Will Fuller HOU (9),159, $1.00 ,TIER 8,WR,Value,,
+Ted Ginn CAR (7),161, $1.00 ,TIER 8,WR,,,
+Bruce Ellington SF (8),164, $3.00 ,TIER 8,WR,,,
+Chris Thompson WAS (9),166, $1.00 ,TIER 8,RB,,,
+Nelson Agholor PHI (4),168, $1.00 ,TIER 8,WR,,,
+Andrew Hawkins CLE (13),170, $3.00 ,TIER 8,WR,,,
+Christine Michael SEA (5),170, $1.00 ,TIER 8,RB,Handcuff,Matthews Grag, $3.00 
+C.J. Prosise SEA (5),173, $1.00 ,TIER 8,RB,,,
+DeAndre Washington OAK (10),174, $7.00 ,TIER 8,RB,Premium,,
+Davante Adams GB (4),175, $2.00 ,TIER 8,WR,,,
+Steve Smith BAL (8),175, $1.00 ,TIER 8,WR,No,,
+Devontae Booker DEN (11),180, $1.00 ,TIER 8,RB,,,
+Tevin Coleman ATL (11),181, $1.00 ,TIER 8,RB,,,
+Darren McFadden DAL (7),182, $1.00 ,TIER 8,RB,,,
+Kenneth Dixon BAL (8),186, $1.00 ,TIER 8,RB,,,
+Josh Doctson WAS (9),188, $1.00 ,TIER 8,WR,,,
+Michael Thomas NO (5),191, $2.00 ,TIER 8,WR,Premium,Gone The Patron, $1.00 
+Chris Johnson ARI (9),193, $1.00 ,TIER 8,RB,Handcuff,,
+Danny Amendola NE (9),194, $1.00 ,TIER 8,WR,,,
+Josh Ferguson IND (10),196, $1.00 ,TIER 8,RB,,,
+Charcandrick West KC (5),199, $1.00 ,TIER 8,RB,,,
+Alfred Morris DAL (7),201, $1.00 ,TIER 8,RB,Handcuff,,
+James Starks GB (4),201, $1.00 ,TIER 8,RB,,,
+Jerick McKinnon MIN (6),201, $1.00 ,TIER 8,RB,,,
+Jimmy Graham SEA (5),201, $1.00 ,TIER 8,TE,No,Matthews Grag, $3.00 
+Jordan Howard CHI (9),201, $1.00 ,TIER 8,RB,,,
+Karlos Williams FA,201, $1.00 ,TIER 8,RB,,,
+Paul Perkins NYG (8),201, $1.00 ,TIER 8,RB,,,
+Richard Rodgers GB (4),201, $1.00 ,TIER 8,TE,,,
+Ronnie Hillman DEN (11),201, $1.00 ,TIER 8,RB,,,
+Terrance West BAL (8),201, $1.00 ,TIER 8,RB,,Floppity Boppity TDs, $5.00 
+Wendell Smallwood PHI (4),201, $1.00 ,TIER 8,RB,,,
+Zach Zenner DET (10),201, $1.00 ,TIER 8,RB,,,
+Albert Wilson KC (5),183, $1.00 ,TIER 9,WR,,,
+Tajae Sharpe TEN (13),184, $1.00 ,TIER 9,WR,,,
+Jermaine Kearse SEA (5),187, $3.00 ,TIER 9,WR,Premium,,
+Victor Cruz NYG (8),188, $1.00 ,TIER 9,WR,,,
+Benny Cunningham LA (8),190, $1.00 ,TIER 9,RB,Handcuff,,
+Malcolm Mitchell NE (9),195, $1.00 ,TIER 9,WR,,,
+Spencer Ware KC (5),197, $1.00 ,TIER 9,RB,Handcuff,,
+Jamison Crowder WAS (9),198, $1.00 ,TIER 9,WR,,,
+Alfred Blue HOU (9),201, $1.00 ,TIER 9,RB,,,
+Andre Ellington ARI (9),201, $1.00 ,TIER 9,RB,,,
+Eli Rogers PIT,201, $1.00 ,TIER 9,WR,Yes,,
+Andre Johnson TEN (13),201, $1.00 ,TIER 9,WR,,,
+Andre Williams NYG (8),201, $1.00 ,TIER 9,RB,,,
+Anquan Boldin DET (10),201, $1.00 ,TIER 9,WR,,Citadel Cadets, $3.00 
+Antonio Andrews TEN (13),201, $1.00 ,TIER 9,RB,,,
+Austin Hooper ATL (11),201, $1.00 ,TIER 9,TE,,,
+Bishop Sankey TEN (13),201, $1.00 ,TIER 9,RB,,,
+Blake Bell SF (8),201, $1.00 ,TIER 9,TE,,,
+Brandon Bolden NE (9),201, $1.00 ,TIER 9,RB,,,
+Brandon Coleman NO (5),201, $1.00 ,TIER 9,WR,,,
+Brent Celek PHI (4),201, $1.00 ,TIER 9,TE,,,
+Breshad Perriman BAL (8),201, $1.00 ,TIER 9,WR,,,
+"Brian Hartline, FA",201, $1.00 ,TIER 9,WR,,,
+Brian Quick LA (8),201, $1.00 ,TIER 9,WR,,,
+C.J. Spiller NO (5),201, $1.00 ,TIER 9,RB,,,
+Cameron Artis-Payne CAR (7),201, $1.00 ,TIER 9,RB,,,
+Cecil Shorts HOU (9),201, $1.00 ,TIER 9,WR,,,
+Charles Johnson MIN (6),201, $1.00 ,TIER 9,WR,,,
+Chris Conley KC (5),201, $1.00 ,TIER 9,WR,,,
+Chris Polk HOU (9),201, $1.00 ,TIER 9,RB,,,
+Cody Latimer DEN (11),201, $1.00 ,TIER 9,WR,,,
+Cole Beasley DAL (7),201, $1.00 ,TIER 9,WR,,,
+Cordarrelle Patterson MIN (6),201, $1.00 ,TIER 9,WR,,,
+Crockett Gillmore BAL (8),201, $1.00 ,TIER 9,TE,,,
+Damien Williams MIA (8),201, $1.00 ,TIER 9,RB,,,
+"Daniel Herron, FA",201, $1.00 ,TIER 9,RB,,,
+Darren Fells ARI (9),201, $1.00 ,TIER 9,TE,,,
+David Cobb TEN (13),201, $1.00 ,TIER 9,RB,,,
+Denard Robinson JAC (5),201, $1.00 ,TIER 9,RB,,,
+Devin Smith NYJ (11),201, $1.00 ,TIER 9,WR,,,
+Dexter McCluster TEN (13),201, $1.00 ,TIER 9,RB,,,
+"Dwayne Bowe, FA",201, $1.00 ,TIER 9,WR,,,
+Eddie Royal CHI (9),201, $1.00 ,TIER 9,WR,,,
+"Fred Jackson, FA",201, $1.00 ,TIER 9,RB,,,
+"Greg Jennings, FA",201, $1.00 ,TIER 9,WR,,,
+Hunter Henry SD (11),201, $1.00 ,TIER 9,TE,,,
+Jace Amaro NYJ (11),201, $1.00 ,TIER 9,TE,,,
+Jacob Tamme ATL (11),201, $1.00 ,TIER 9,TE,,,
+Jaelen Strong HOU (9),201, $1.00 ,TIER 9,WR,,,
+James Jones SD (11),201, $1.00 ,TIER 9,WR,,,
+Jarius Wright MIN (6),201, $1.00 ,TIER 9,WR,,,
+Jeff Cumberland SD (11),201, $1.00 ,TIER 9,TE,,,
+Jeff Janis GB (4),201, $1.00 ,TIER 9,WR,,,
+"Jerricho Cotchery, FA",201, $1.00 ,TIER 9,WR,,,
+Jesse James PIT (8),201, $1.00 ,TIER 9,TE,,,
+"Joique Bell, FA",201, $1.00 ,TIER 9,RB,,,
+Josh Hill NO (5),201, $1.00 ,TIER 9,TE,,,
+Josh Huff PHI (4),201, $1.00 ,TIER 9,WR,,,
+Justin Hardy ATL (11),201, $1.00 ,TIER 9,WR,,,
+Juwan Thompson DEN (11),201, $1.00 ,TIER 9,RB,,,
+Ka'Deem Carey CHI (9),201, $1.00 ,TIER 9,RB,,,
+Keith Marshall WAS (9),201, $1.00 ,TIER 9,RB,,,
+Kenny Britt LA (8),201, $1.00 ,TIER 9,WR,,,
+Kenny Stills MIA (8),201, $1.00 ,TIER 9,WR,,,
+Kenyan Drake MIA (8),201, $1.00 ,TIER 9,RB,,,
+Khiry Robinson NYJ (11),201, $1.00 ,TIER 9,RB,,,
+Knile Davis KC (5),201, $1.00 ,TIER 9,RB,,,
+Lance Dunbar DAL (7),201, $1.00 ,TIER 9,RB,,,
+Lance Kendricks LA (8),201, $1.00 ,TIER 9,TE,,,
+Larry Donnell NYG (8),201, $1.00 ,TIER 9,TE,,,
+"Malcom Floyd, FA",201, $1.00 ,TIER 9,WR,,,
+Marqise Lee JAC (5),201, $1.00 ,TIER 9,WR,,,
+"Marques Colston, FA",201, $1.00 ,TIER 9,WR,,,
+Mike Tolbert CAR (7),201, $1.00 ,TIER 9,RB,,,
+Mychal Rivera OAK (10),201, $1.00 ,TIER 9,TE,,,
+"Nate Washington, FA",201, $1.00 ,TIER 9,WR,,,
+Orleans Darkwa  NYG (8),201, $1.00 ,TIER 9,RB,,,
+"Owen Daniels, FA",201, $1.00 ,TIER 9,TE,,,
+Philly Brown CAR (7),201, $1.00 ,TIER 9,WR,,,
+"Reggie Wayne, FA",201, $1.00 ,TIER 9,WR,,,
+"Roddy White, FA",201, $1.00 ,TIER 9,WR,,,
+Roy Helu OAK (10),201, $1.00 ,TIER 9,RB,,,
+Ryan Griffin HOU (9),201, $1.00 ,TIER 9,TE,,,
+"Stedman Bailey, LA",201, $1.00 ,TIER 9,WR,,,
+"Stevan Ridley, FA",201, $1.00 ,TIER 9,RB,,,
+Steve Johnson SD (11),201, $1.00 ,TIER 9,WR,,,
+Taylor Gabriel CLE (13),201, $1.00 ,TIER 9,WR,,,
+Tim Hightower NO (5),201, $1.00 ,TIER 9,RB,,,
+Tre Mason LA (8),201, $1.00 ,TIER 9,RB,,,
+Ty Montgomery GB (4),201, $1.00 ,TIER 9,WR,,,
+Vernon Davis WAS (9),201, $1.00 ,TIER 9,TE,,,
+"Zach Miller, FA",201, $1.00 ,TIER 9,TE,,,
+Seattle Seahawks,1, $1.00 ,D/ST,D/ST,,Citadel Cadets, $3.00 
+Denver Broncos,2, $1.00 ,D/ST,D/ST,,Dak and Jaxter, $4.00 
+Arizona Cardinals,2, $1.00 ,D/ST,D/ST,,Gone The Patron, $3.00 
+Carolina Panthers,4, $1.00 ,D/ST,D/ST,,Matthews Grag, $2.00 
+Houston Texans,5, $1.00 ,D/ST,D/ST,,Post Traumatic SD, $2.00 
+Kansas City Chiefs,6, $1.00 ,D/ST,D/ST,,My Lofty Pony, $3.00 
+Los Angeles Rams,7, $1.00 ,D/ST,D/ST,,James K Polk's Ass, $2.00 
+Cincinnati Bengals,8, $1.00 ,D/ST,D/ST,,Build a Wall, $1.00 
+Minnesota Vikings,9, $1.00 ,D/ST,D/ST,,Floppity Boppity TDs, $1.00 
+New England Patriots,10, $1.00 ,D/ST,D/ST,,G. Jennings Retired, $1.00 
+New York Jets,11, $1.00 ,D/ST,D/ST,,,
+Buffalo Bills,12, $1.00 ,D/ST,D/ST,,,
+Green Bay Packers,13, $1.00 ,D/ST,D/ST,,,
+Pittsburgh Steelers,14, $1.00 ,D/ST,D/ST,,,
+Miami Dolphins,14, $1.00 ,D/ST,D/ST,,,
+Baltimore Ravens,16, $1.00 ,D/ST,D/ST,,,
+Oakland Raiders,17, $1.00 ,D/ST,D/ST,,Harambe's Heroes, $1.00 
+Philadelphia Eagles,18, $1.00 ,D/ST,D/ST,,,
+Jacksonville Jaguars,19, $1.00 ,D/ST,D/ST,,Manning-Faced God, $1.00 
+Detroit Lions,20, $1.00 ,D/ST,D/ST,,,
+New York Giants,21, $1.00 ,D/ST,D/ST,,,
+Tampa Bay Buccaneers,22, $1.00 ,D/ST,D/ST,,,
+Washington Redskins,23, $1.00 ,D/ST,D/ST,,,
+Chicago Bears,24, $1.00 ,D/ST,D/ST,,,
+Dallas Cowboys,25, $1.00 ,D/ST,D/ST,,,
+San Francisco 49ers,26, $1.00 ,D/ST,D/ST,,,
+Indianapolis Colts,26, $1.00 ,D/ST,D/ST,,,
+Tennessee Titans,28, $1.00 ,D/ST,D/ST,,,
+Cleveland Browns,29, $1.00 ,D/ST,D/ST,,,
+Atlanta Falcons,30, $1.00 ,D/ST,D/ST,,,
+New Orleans Saints,31, $1.00 ,D/ST,D/ST,,,
+San Diego Chargers,32, $1.00 ,D/ST,D/ST,,,
+Stephen Gostkowski,1, $1.00 ,K,K,,Matthews Grag, $3.00 
+Steven Hauschka,2, $1.00 ,K,K,,G. Jennings Retired, $1.00 
+Dan Bailey,3, $1.00 ,K,K,,Gone The Patron, $1.00 
+Justin Tucker,4, $1.00 ,K,K,,Citadel Cadets, $2.00 
+Adam Vinatieri,5, $1.00 ,K,K,,Harambe's Heroes, $1.00 
+Mason Crosby,6, $1.00 ,K,K,,Build a Wall, $1.00 
+Graham Gano,7, $1.00 ,K,K,,Dak and Jaxter, $1.00 
+Blair Walsh,8, $1.00 ,K,K,,Post Traumatic SD, $1.00 
+Chandler Catanzaro,9, $1.00 ,K,K,,Floppity Boppity TDs, $1.00 
+Matt Prater,10, $1.00 ,K,K,,My Lofty Pony, $1.00 
+Roberto Aguayo,11, $1.00 ,K,K,,,
+Chris Boswell,12, $1.00 ,K,K,,Manning-Faced God, $1.00 
+Cairo Santos,13, $1.00 ,K,K,,,
+Robbie Gould,14, $1.00 ,K,K,,,
+Josh Brown,15, $1.00 ,K,K,,,
+Brandon McManus,16, $1.00 ,K,K,,,
+Matt Bryant,17, $1.00 ,K,K,,,
+Nick Novak,18, $1.00 ,K,K,,,
+Dan Carpenter,19, $1.00 ,K,K,,,
+Mike Nugent,20, $1.00 ,K,K,,,
+Dustin Hopkins,21, $1.00 ,K,K,,,
+Phil Dawson,22, $1.00 ,K,K,,,
+Sebastian Janikowski,23, $1.00 ,K,K,,,
+Josh Lambo,24, $1.00 ,K,K,,,
+Connor Barth,25, $1.00 ,K,K,,,
+Jason Myers,26, $1.00 ,K,K,,,
+Nick Folk,27, $1.00 ,K,K,,,
+Cody Parkey,28, $1.00 ,K,K,,,
+Andrew Franks,29, $1.00 ,K,K,,,
+Patrick Murray,30, $1.00 ,K,K,,,
+Ryan Succop,31, $1.00 ,K,K,,,
+Greg Zuerlein,32, $1.00 ,K,K,,,

@@ -1,0 +1,72 @@
+---
+title: "Draft History"
+author: "Tom Kain"
+date: "July 2, 2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(janitor)
+library(here)
+```
+
+Importing draft results in their varying format from 2011-2018
+```{r import}
+drafts_old_raw <- here("data", "2011-2015_draftResults.csv") %>% 
+  read_csv() %>% 
+  clean_names()
+
+draft_2016_raw <- here("data", "2016_draftResults.csv") %>% 
+  read_csv() %>% 
+  clean_names()
+
+draft_2017_raw <- here("data", "2017_draftResults.csv") %>% 
+  read_csv() %>% 
+  clean_names()
+
+draft_2018_raw <- here("data", "2018_draftResults.csv") %>% 
+  read_csv() %>% 
+  clean_names()
+```
+
+Columns I want in the final data set:
+
+1. Year 
+2. Player name
+3. Position
+4. Projected Tier (1 = best)
+5. Draft Team
+6. Draft Price
+
+Maybe later worry about joining with some then-projected value. Some things to clean up:
+
+1. Player name convention (First name vs initial)
+2. Convert ADP to Tier
+3. Probably drop Kickers, maybe DEF too
+4. Verify price is numeric (integer)
+
+```{r clean_old_drafts}
+draft_2015 <- drafts_old_raw %>% 
+  filter(year == 2015) %>% 
+  select(-pick) %>% 
+  mutate(price = price %>% str_sub(2) %>% as.numeric)
+
+draft_2015 %>% 
+  filter(!is.na(adp)) %>% 
+  ggplot(aes(adp, position, color=position)) +
+  geom_point() 
+
+draft_2017_raw %>% 
+  filter(!is.na(spent)) %>% 
+  mutate(tier = as_factor(tier),
+         spent = spent %>% str_sub(2) %>% as.numeric) %>% 
+  ggplot(aes(spent, position, color=tier)) +
+  geom_point() +
+  scale_x_reverse()
+
+draft_
+```
