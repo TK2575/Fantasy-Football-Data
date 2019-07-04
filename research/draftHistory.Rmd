@@ -67,12 +67,9 @@ adp_vs_tier %>%
   geom_bar(stat = "count")
 
 adp_vs_tier %>% 
-  group_by(tier, position) %>% 
+  group_by(tier) %>% 
   summarize(n = n()) %>% 
-  ungroup() %>% 
-  group_by(tier)
-  mutate(perc = n / sum(n) * 100) %>% 
-  arrange(tier, position, n)
+  mutate(perc = n / sum(n) * 100)
 ```
 
 ```{r clean_old_drafts}

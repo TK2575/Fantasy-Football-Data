@@ -1,0 +1,49 @@
+---
+title: "Roster History"
+author: "Tom Kain"
+date: "July 4, 2019"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(janitor)
+library(here)
+```
+
+```{r eval=FALSE, include=FALSE}
+library(googlesheets)
+sheets <- gs_ls()
+
+rslt_2017 <- gs_title("2017 Fantasy Football Results")
+rslt_2018 <- gs_title("2018 Fantasy Football Results")
+
+rosters_2017 <- rslt_2017 %>% 
+  gs_read(ws = "Rosters (Expanded)") %>% 
+  mutate(year = 2017)
+
+rosters_2018 <- rslt_2018 %>% 
+  gs_read(ws = "Rosters (Expanded)") %>% 
+  mutate(year = 2018)
+
+list(rosters_2017, rosters_2018) %>% 
+  saveRDS(here("data", "rosters_history.Rds"))
+```
+
+```{r}
+rosters_list <- here("data", "rosters_history.Rds") %>% 
+  readRDS()
+
+rosters_2017 <- rosters_list[[1]]
+rosters_2018 <- rosters_list[[2]]
+
+rosters <- rosters_2017 %>% 
+  mutate(Perc_Owned = Perc_Owned %>% 
+           str_replace_all(".00%", "") %>% 
+           as.numeric()) %>% 
+  bind_rows(rosters_2018) %>% 
+  clean_names()
+```
