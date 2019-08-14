@@ -1,0 +1,24 @@
+---
+title: "Preseason Projection Wrangling"
+author: "Tom Kain"
+date: "8/13/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(janitor)
+library(here)
+```
+
+# Resources
+1. Fantasy Footballers (UDK)
+2. Fantasy Pros (High/Low/Consensus)
+3. Yahoo
+4. The Athletic
+
+## Fantasy Footballers
+```{r}
+
+```
