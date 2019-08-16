@@ -22,8 +22,9 @@ library(here)
 
 ## Fantasy Footballers
 ```{r}
-here("src", "scrape_fantasy_footballers.R") %>% source()
-result <- get_fantasy_footballers_projections()
+# here("src", "scrape_fantasy_footballers.R") %>% source()
+# result <- get_fantasy_footballers_projections()
+result <- here("data", "raw_projections.Rds") %>% readRDS()
 
 projections <-
   result %>% 
@@ -56,13 +57,30 @@ position_point_medians <-
   filter(starter) %>%   
   summarize(median_points = median(points))
   
-projections %>% 
+projections <- 
+  projections %>% 
   left_join(position_point_medians, "position") %>% 
-  mutate(points_adj = points - median_points) %>% 
-  ggplot(aes(points_adj, position)) +
+  mutate(points_adj = points - median_points)
+
+projections %>% 
+  ggplot(aes(points_adj, points, group = position)) +
   geom_point() +
   scale_x_reverse()
-  # price
   # tiers
+  # adp
+  # price
+```
+
+```{r}
+library(BAMMtools)
+
+projections %>% 
+  ggplot(aes(points, group = position, color = position)) +
+  geom_histogram(bins = 6)
+
+projections %>% 
+  filter(position == 'WR') %>% 
+  select(points) %>% 
+  pull()
 ```
 
