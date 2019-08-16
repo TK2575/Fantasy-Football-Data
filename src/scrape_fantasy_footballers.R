@@ -40,6 +40,9 @@ get_fantasy_footballers_projections <- function(rd) {
   user_field$sendKeysToElement(list(credentials$username))
   password_field$sendKeysToElement(list(credentials$password, key = "enter"))
   
+  # let login catch up
+  Sys.sleep(10)
+  
   # get each position for each expert
   
   experts <- c("andy","jason","mike")
@@ -48,7 +51,6 @@ get_fantasy_footballers_projections <- function(rd) {
   result <- NULL
   
   for (expert in experts) {
-    projection_url <- NULL
     for (position in positions) {
       projection_url <- paste0(url, "udk-", expert, "s-projections/?position=", position)
       
@@ -78,6 +80,6 @@ get_fantasy_footballers_projections <- function(rd) {
     }
   }
   client$close()
-  #TODO name cleanup (split name, team, bye)
+  #TODO name cleanup (split name, team, bye), drop points
   result
 }
