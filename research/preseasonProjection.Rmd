@@ -81,6 +81,7 @@ projections %>%
 projections %>% 
   filter(position == 'WR') %>% 
   select(points) %>% 
-  pull()
+  pull() %>% 
+  getJenksBreaks(9)
 ```
 
