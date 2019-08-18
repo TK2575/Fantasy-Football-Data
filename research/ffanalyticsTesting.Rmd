@@ -14,10 +14,17 @@ library(here)
 ```
 
 ```{r scrape}
+# scraped_data <- 
+#   scrape_data(src = c("CBS", "Yahoo", "FantasyPros", "FantasySharks", "NumberFire", "NFL"), 
+#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+#               season = 2019, week = 0)
+# 
+# scraped_data %>% 
+#   saveRDS(here("data", "ffanalytics_scrape.RDS"))
+
 scraped_data <- 
-  scrape_data(src = c("CBS", "Yahoo", "FantasyPros", "FantasySharks", "NumberFire", "NFL"), 
-              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-              season = 2019, week = 0)
+  here("data", "ffanalytics_scrape.RDS") %>% 
+  readRDS()
 ```
 
 ```{r scoring_table}
@@ -81,5 +88,41 @@ scoring_table <-
 #   add_aav() %>% 
 #   add_player_info()
 
+# projections %>% 
+#   saveRDS(here("data", "rawProjections.Rds"))
+
 projections <- readRDS(here("data", "rawProjections.Rds"))
+```
+
+### Projection Columns
+
+1. id - unique ID for each player across all sources
+2. first name
+3. last name
+4. team - NFL team
+5. position / pos
+6. age - player age
+7. exp - ?
+8. avg_type - robust, average, weighted
+9. points
+10. pos_rank - position rank by avg_type
+11. drop_off - ?
+12. sd_pts - ?
+13. floor - least projected points
+14. ceiling - most projected points
+15. tier - positional ranking tier
+16. points_vor - ?
+17. rank - overall rank by total points
+18. floor_vor - ?
+19. floor_rank - ?
+20. ceiling_vor - ?
+21. ceiling_rank - ?
+22. pos_ecr - ?
+23. sd_ecr - ?
+24. ecr - ?
+25. risk - ?
+26. adp
+27. adp_diff - ?
+```{r}
+projections %>% colnames()
 ```
