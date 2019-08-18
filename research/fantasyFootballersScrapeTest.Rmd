@@ -1,5 +1,5 @@
 ---
-title: "Preseason Projection Wrangling"
+title: "Fantasy Footballers Scrape Test"
 author: "Tom Kain"
 date: "8/13/2019"
 output: html_document
@@ -24,7 +24,7 @@ library(here)
 ```{r}
 # here("src", "scrape_fantasy_footballers.R") %>% source()
 # result <- get_fantasy_footballers_projections()
-result <- here("data", "raw_projections.Rds") %>% readRDS()
+result <- here("data", "raw_fantasy_footballers_projections.Rds") %>% readRDS()
 
 projections <-
   result %>% 
@@ -66,22 +66,4 @@ projections %>%
   ggplot(aes(points_adj, points, group = position)) +
   geom_point() +
   scale_x_reverse()
-  # tiers
-  # adp
-  # price
 ```
-
-```{r}
-library(BAMMtools)
-
-projections %>% 
-  ggplot(aes(points, group = position, color = position)) +
-  geom_histogram(bins = 6)
-
-projections %>% 
-  filter(position == 'WR') %>% 
-  select(points) %>% 
-  pull() %>% 
-  getJenksBreaks(9)
-```
-
