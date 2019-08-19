@@ -76,12 +76,21 @@ scoring_table <-
   )
 )
 
-# TODO include defensive yards allowed
+# TODO include defensive yards allowed (read in via projected_points calc_projections.R:210)
+```
+
+```{r source_weights}
+weights <- c(CBS = 1, Yahoo = 1,  ESPN = 1,  NFL = 1,
+                    FFToday = .5, NumberFire = 1, FantasyPros = 1,
+                    FantasySharks= .5, FantasyFootballNerd = .5,
+                    Walterfootball = .5, RTSports= 0.5,
+                    FantasyData= 0.5, FleaFlicker = 0.5)
+# TODO add fantasyfootballers, the Athletic
 ```
 
 ```{r calculate_projections}
 # projections <- 
-#   projections_table(data_result = scraped_data, scoring_rules = scoring_table) %>% 
+#   projections_table(data_result = scraped_data, scoring_rules = scoring_table, src_weights = weights) %>% 
 #   add_ecr() %>% 
 #   add_risk() %>% 
 #   add_adp() %>% 
@@ -103,13 +112,13 @@ projections <- readRDS(here("data", "rawProjections.Rds"))
 5. position / pos
 6. age - player age
 7. exp - ?
-8. avg_type - robust, average, weighted
+8. avg_type - robust ( [Wilcoxon signed-rank test](https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test) ), average (mean), weighted (weighted mean by default or inputted source weighting)
 9. points
 10. pos_rank - position rank by avg_type
-11. drop_off - ?
-12. sd_pts - ?
-13. floor - least projected points
-14. ceiling - most projected points
+11. drop_off - difference in points between player and mean points of the next two players down rank
+12. sd_pts - standard deviation in points aross all sources
+13. floor - least projected points within confidence interval
+14. ceiling - most projected points within confidence interval
 15. tier - positional ranking tier
 16. points_vor - ?
 17. rank - overall rank by total points
@@ -123,6 +132,5 @@ projections <- readRDS(here("data", "rawProjections.Rds"))
 25. risk - ?
 26. adp
 27. adp_diff - ?
-```{r}
-projections %>% colnames()
-```
+
+Reviewed the projections_table method through line 400 (next up, tier thresholds and assignment, then VOR, then the add_* functions)
