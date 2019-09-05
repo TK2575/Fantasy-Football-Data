@@ -143,11 +143,6 @@ Reviewed the projections_table method through line 400 (next up, tier thresholds
 
 ```{r scrape_week1}
 
-week1_cbs <-
-  scrape_data(src = c("CBS"),
-              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-              season = 2019, week = 1)
-
 week1_yahoo <-
   scrape_data(src = c("Yahoo"),
               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
@@ -164,7 +159,7 @@ week1_numberfire <-
               season = 2019, week = 1)
 
 week1 <- 
-  scrape_data(src = c("NumberFire", "FantasyPros", "Yahoo", "CBS"),
+  scrape_data(src = c("NumberFire", "FantasyPros", "Yahoo"),
               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
               season = 2019, week = 1)
 
@@ -183,4 +178,7 @@ week1_projections %>%
   write_csv(here("data", "week1_projections.csv"))
 
 week1 %>% saveRDS(here("data", "week1_scrape.Rds"))
+
+week1_numberfire$QB %>% 
+  filter(id == 13589) %>% View()
 ```
