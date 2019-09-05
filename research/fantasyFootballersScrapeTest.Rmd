@@ -14,13 +14,7 @@ library(janitor)
 library(here)
 ```
 
-# Resources
-1. Fantasy Footballers (UDK)
-2. Fantasy Pros (High/Low/Consensus)
-3. Yahoo
-4. The Athletic
 
-## Fantasy Footballers
 ```{r}
 # here("src", "scrape_fantasy_footballers.R") %>% source()
 # result <- get_fantasy_footballers_projections()

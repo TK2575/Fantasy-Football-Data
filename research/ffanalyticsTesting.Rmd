@@ -14,13 +14,13 @@ library(here)
 ```
 
 ```{r scrape}
-# scraped_data <- 
-#   scrape_data(src = c("CBS", "Yahoo", "FantasyPros", "FantasySharks", "NumberFire", "NFL"), 
-#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-#               season = 2019, week = 0)
-# 
-# scraped_data %>% 
-#   saveRDS(here("data", "ffanalytics_scrape.RDS"))
+scraped_data <-
+  scrape_data(src = c("CBS", "Yahoo", "FantasyPros", "FantasySharks", "NumberFire", "NFL"),
+              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+              season = 2019, week = 0)
+
+scraped_data %>%
+  saveRDS(here("data", "ffanalytics_scrape.RDS"))
 
 scraped_data <- 
   here("data", "ffanalytics_scrape.RDS") %>% 
@@ -89,18 +89,23 @@ weights <- c(CBS = 1, Yahoo = 1,  ESPN = 1,  NFL = 1,
 ```
 
 ```{r calculate_projections}
-# projections <- 
-#   projections_table(data_result = scraped_data, scoring_rules = scoring_table, src_weights = weights) %>% 
-#   add_ecr() %>% 
-#   add_risk() %>% 
-#   add_adp() %>% 
-#   add_aav() %>% 
-#   add_player_info()
+projections <-
+  projections_table(data_result = scraped_data, 
+                    scoring_rules = scoring_table)
+  
+projections %>% 
+  add_ecr() %>% 
+  add_risk() %>% 
+  add_adp() 
+  add_aav() %>%
+  add_player_info()
 
-# projections %>% 
+# projections %>%
 #   saveRDS(here("data", "rawProjections.Rds"))
 
 projections <- readRDS(here("data", "rawProjections.Rds"))
+
+projections %>% add_aav()
 ```
 
 ### Projection Columns
@@ -134,3 +139,48 @@ projections <- readRDS(here("data", "rawProjections.Rds"))
 27. adp_diff - ?
 
 Reviewed the projections_table method through line 400 (next up, tier thresholds and assignment, then VOR, then the add_* functions)
+
+
+```{r scrape_week1}
+
+week1_cbs <-
+  scrape_data(src = c("CBS"),
+              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+              season = 2019, week = 1)
+
+week1_yahoo <-
+  scrape_data(src = c("Yahoo"),
+              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+              season = 2019, week = 1)
+
+week1_fantasypros <- 
+  scrape_data(src = c("FantasyPros"),
+              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+              season = 2019, week = 1)
+
+week1_numberfire <- 
+  scrape_data(src = c("NumberFire"),
+              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+              season = 2019, week = 1)
+
+week1 <- 
+  scrape_data(src = c("NumberFire", "FantasyPros", "Yahoo", "CBS"),
+              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+              season = 2019, week = 1)
+
+projections <- 
+  week1 %>% 
+  projections_table(data_result = .,
+                    scoring_rules = scoring_table)
+
+week1_projections <- 
+  projections %>% 
+  add_ecr() %>% 
+  add_risk() %>% 
+  add_player_info()
+
+week1_projections %>% 
+  write_csv(here("data", "week1_projections.csv"))
+
+week1 %>% saveRDS(here("data", "week1_scrape.Rds"))
+```
