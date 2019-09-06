@@ -193,4 +193,24 @@ week1_projections %>%
   write_csv(here("data", "week1_projections.csv"))
 
 week1 %>% saveRDS(here("data", "week1_scrape.Rds"))
+
+week1 <- readRDS(here("data", "week1_scrape.Rds"))
+
+# allen = 13589
+# cousins = 10700
+
+week1$QB %>% 
+  filter(id %in% c(13589,10700)) %>% 
+  mutate(rush_yds = if_else(is.na(rush_yds),0,rush_yds),
+         rush_tds = if_else(is.na(rush_tds),0,rush_tds)) %>% 
+  mutate(points = 
+           (pass_yds / 15) +
+           (pass_tds * 4) +
+           (pass_int * -2) +
+           (rush_yds / 10) +
+           (rush_tds * 6)) %>% 
+  arrange(data_src, id) %>% 
+  select(data_src, player, points, pass_comp:rush_tds) %>%
+  View()
+
 ```
