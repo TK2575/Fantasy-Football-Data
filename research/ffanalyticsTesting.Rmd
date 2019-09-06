@@ -158,8 +158,22 @@ week1_numberfire <-
               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
               season = 2019, week = 1)
 
+week1_fantasysharks <-
+  scrape_data(src = c("FantasySharks"),
+              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+              season = 2019, week = 1)
+
+week1_fftoday <-
+  scrape_data(src = c("FFToday"),
+              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+              season = 2019, week = 1)
+
 week1 <- 
-  scrape_data(src = c("NumberFire", "FantasyPros", "Yahoo"),
+  scrape_data(src = c("NumberFire", 
+                      "FantasyPros", 
+                      "Yahoo", 
+                      "FantasySharks", 
+                      "FFToday"),
               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
               season = 2019, week = 1)
 
@@ -175,10 +189,8 @@ week1_projections <-
   add_player_info()
 
 week1_projections %>% 
+  arrange(avg_type, position, pos_rank) %>% 
   write_csv(here("data", "week1_projections.csv"))
 
 week1 %>% saveRDS(here("data", "week1_scrape.Rds"))
-
-week1_numberfire$QB %>% 
-  filter(id == 13589) %>% View()
 ```
