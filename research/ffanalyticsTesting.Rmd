@@ -141,63 +141,60 @@ projections %>% add_aav()
 Reviewed the projections_table method through line 400 (next up, tier thresholds and assignment, then VOR, then the add_* functions)
 
 
-```{r scrape_week1}
+```{r scrape_week}
 
-week1_yahoo <-
-  scrape_data(src = c("Yahoo"),
-              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-              season = 2019, week = 1)
+week <- 2
 
-week1_fantasypros <- 
-  scrape_data(src = c("FantasyPros"),
-              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-              season = 2019, week = 1)
+# week_yahoo <-
+#   scrape_data(src = c("Yahoo"),
+#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+#               season = 2019, week = week)
+# 
+# week_fantasypros <- 
+#   scrape_data(src = c("FantasyPros"),
+#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+#               season = 2019, week = week)
+# 
+# week_numberfire <- 
+#   scrape_data(src = c("NumberFire"),
+#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+#               season = 2019, week = week)
+# 
+# week_fantasysharks <-
+#   scrape_data(src = c("FantasySharks"),
+#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+#               season = 2019, week = week)
+# 
+# week_fftoday <-
+#   scrape_data(src = c("FFToday"),
+#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
+#               season = 2019, week = week)
 
-week1_numberfire <- 
-  scrape_data(src = c("NumberFire"),
-              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-              season = 2019, week = 1)
-
-week1_fantasysharks <-
-  scrape_data(src = c("FantasySharks"),
-              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-              season = 2019, week = 1)
-
-week1_fftoday <-
-  scrape_data(src = c("FFToday"),
-              pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-              season = 2019, week = 1)
-
-week1 <- 
+week_scrape <- 
   scrape_data(src = c("NumberFire", 
                       "FantasyPros", 
                       "Yahoo", 
                       "FantasySharks", 
                       "FFToday"),
               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-              season = 2019, week = 1)
-
-projections <- 
-  week1 %>% 
+              season = 2019, week = week)
+week_projections <- 
+  week_scrape %>% 
   projections_table(data_result = .,
-                    scoring_rules = scoring_table)
-
-week1_projections <- 
-  projections %>% 
+                    scoring_rules = scoring_table) %>% 
   add_ecr() %>% 
   add_risk() %>% 
   add_player_info()
 
-week1_projections %>% 
+
+week_projections %>% 
   arrange(avg_type, position, pos_rank) %>% 
-  write_csv(here("data", "week1_projections.csv"))
+  write_csv(here("data", paste0("week",week,"_projections.csv")))
 
-week1 %>% saveRDS(here("data", "week1_scrape.Rds"))
+week_scrape %>% saveRDS(here("data", paste0("week",week,"_scrape.Rds")))
 
-week1 <- readRDS(here("data", "week1_scrape.Rds"))
+week_scrape <- readRDS(here("data", paste0("week",week,"_scrape.Rds")))
 
-# allen = 13589
-# cousins = 10700
 
 week1$QB %>% 
   filter(id %in% c(13589,10700)) %>% 
