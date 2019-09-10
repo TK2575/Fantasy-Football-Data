@@ -1,4 +1,4 @@
-CREATE TABLE `2018_ff`.`roster_expanded` (
+CREATE TABLE `2019_ff`.`roster_expanded` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `crte_dttm` TIMESTAMP NOT NULL,
   `week` INT NOT NULL,
@@ -42,11 +42,11 @@ CREATE TABLE `2018_ff`.`roster_expanded` (
   `yds_allow` INT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `idroster_expanded_UNIQUE` (`id` ASC));
-DROP TRIGGER IF EXISTS `2018_ff`.`roster_expanded_BEFORE_INSERT`;
+DROP TRIGGER IF EXISTS `2019_ff`.`roster_expanded_BEFORE_INSERT`;
 
 DELIMITER $$
-USE `2018_ff`$$
-CREATE DEFINER = CURRENT_USER TRIGGER `2018_ff`.`roster_expanded_BEFORE_INSERT` BEFORE INSERT ON `roster_expanded` FOR EACH ROW
+USE `2019_ff`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `2019_ff`.`roster_expanded_BEFORE_INSERT` BEFORE INSERT ON `roster_expanded` FOR EACH ROW
 BEGIN
 SET NEW.crte_dttm = NOW();
 END$$

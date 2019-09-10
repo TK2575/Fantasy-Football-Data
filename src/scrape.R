@@ -1,6 +1,7 @@
 #' Open Selenium session and scrape data from Yahoo Fantasy Football web pages
 library('RSelenium')
 library('purrr')
+library('config')
 
 base_url <- "https://football.fantasysports.yahoo.com/f1/61536/"
 
@@ -15,14 +16,14 @@ open_session <- function() {
 }
 
 login <- function(rd) {
-  credentials <- read.csv("conf/config.csv", stringsAsFactors = FALSE)
+  credentials <- config::get(file = here("conf", "credentials.yml"))$yahoo
   rd$navigate(base_url)
   webElem <- rd$findElement('xpath', '//*[@id="login-username"]')
-  webElem$sendKeysToElement(list(credentials[1,1], key = "enter"))
+  webElem$sendKeysToElement(list(credentials$username, key = "enter"))
   Sys.sleep(10)
   #rd$setImplicitWaitTimeout(10000)
   webElem2 <- rd$findElement('xpath', '//*[@id="login-passwd"]')
-  webElem2$sendKeysToElement(list(credentials[1,2], key = 'enter'))
+  webElem2$sendKeysToElement(list(credentials$password, key = 'enter'))
   #rd$setImplicitWaitTimeout(4000)
   Sys.sleep(10)
 }
