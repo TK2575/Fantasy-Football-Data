@@ -16,8 +16,10 @@ library(janitor)
 ```
 
 ```{r import}
+week <- 2
+
 projections <-
-  here("data", "week1_projections.csv") %>% 
+  here("data", paste0("week",week,"_projections.csv")) %>% 
   read_csv()
 ```
 
@@ -27,16 +29,17 @@ display_df <-
   projections %>% 
   mutate(name = paste0(first_name, " ", last_name)) %>% 
   filter(avg_type == 'robust',
-         pos %in% c('QB'),
-         points >= 10)
+         pos %in% c('WR','RB','TE'),
+         tier < 6) %>% 
+  mutate(ovrl_rnk = row_number(points %>% desc))
 
 gg <-
   display_df %>% 
-  ggplot(aes(points, pos_rank, color=factor(tier))) +
+  ggplot(aes(points, ovrl_rnk, color=factor(pos))) +
   geom_errorbarh(aes(xmin=floor,xmax=ceiling),height=.75) +
   geom_point(size = 5, color = "white") +
-  geom_text(aes(x=points,label=round(points,0)),size=3)+
-  geom_text(aes(x=ceiling, label=name, hjust=-.2, angle=(0), size=.05))+
+  geom_text(aes(x=points,label=round(points,0)),size=1.75)+
+  geom_text(aes(x=ceiling, label=name, hjust=-.2, angle=(0)), size = 1.75)+
   theme(
     plot.background = element_blank()
     ,panel.grid.major.x = element_line(color="grey")
