@@ -143,32 +143,7 @@ Reviewed the projections_table method through line 400 (next up, tier thresholds
 
 ```{r scrape_week}
 
-week <- 2
-
-# week_yahoo <-
-#   scrape_data(src = c("Yahoo"),
-#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-#               season = 2019, week = week)
-# 
-# week_fantasypros <- 
-#   scrape_data(src = c("FantasyPros"),
-#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-#               season = 2019, week = week)
-# 
-# week_numberfire <- 
-#   scrape_data(src = c("NumberFire"),
-#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-#               season = 2019, week = week)
-# 
-# week_fantasysharks <-
-#   scrape_data(src = c("FantasySharks"),
-#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-#               season = 2019, week = week)
-# 
-# week_fftoday <-
-#   scrape_data(src = c("FFToday"),
-#               pos = c("QB", "RB", "WR", "TE", "DST", "K"),
-#               season = 2019, week = week)
+week <- 10
 
 week_scrape <- 
   scrape_data(src = c("NumberFire", 
