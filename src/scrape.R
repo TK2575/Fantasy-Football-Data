@@ -2,12 +2,13 @@
 library('RSelenium')
 library('purrr')
 library('config')
+library(here)
 
-base_url <- "https://football.fantasysports.yahoo.com/f1/61536/"
+base_url <- "https://football.fantasysports.yahoo.com/f1/73636/"
 
 open_session <- function() {
   rd <- remoteDriver(
-    remoteServerAddr = "localhost",
+    remoteServerAddr = "192.168.0.246",
     port = 4445L
   )
   
@@ -16,7 +17,7 @@ open_session <- function() {
 }
 
 login <- function(rd) {
-  credentials <- config::get(file = here("conf", "credentials.yml"))$yahoo
+  credentials <- config::get(file = here::here("conf", "credentials.yml"))$yahoo
   rd$navigate(base_url)
   webElem <- rd$findElement('xpath', '//*[@id="login-username"]')
   webElem$sendKeysToElement(list(credentials$username, key = "enter"))

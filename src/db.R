@@ -40,7 +40,7 @@ get_tables <- function() {
 
 get_data <- function(table) {
   con <- connect()
-  df <- suppressWarnings(dbReadTable(con, table)) %>% as.tibble() %>% select(-1,-2)
+  df <- suppressWarnings(dbReadTable(con, table)) %>% as_tibble() %>% select(-1,-2)
   dbDisconnect(con)
   df[df == ''] <- NA
   df

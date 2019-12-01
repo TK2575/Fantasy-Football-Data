@@ -57,7 +57,7 @@ make_match_df <- function(df) {
     mutate(rank = rank(desc(Points))) %>%
     filter((rank > 2 & Pos %in% c('RB','WR')) | (rank > 1 & Pos == 'TE')) %>%
     group_by(Week,Team) %>%
-    summarize(Flex_Points = max(Points))
+    dplyr::summarize(Flex_Points = max(Points))
   
   k_points <- max_for_pos(df,'K')
   
@@ -78,7 +78,7 @@ make_match_df <- function(df) {
   
   optimal_points <- optimal_points %>%
     group_by_(.dots = keys) %>%
-    summarize(Optimal_Points = sum(QB_Points, RB_Points, WR_Points, TE_Points, Flex_Points, K_Points, DEF_Points))
+    dplyr::summarize(Optimal_Points = sum(QB_Points, RB_Points, WR_Points, TE_Points, Flex_Points, K_Points, DEF_Points))
   
   results %>% 
     left_join(tot_points,by=keys) %>%

@@ -10,3 +10,59 @@ source_project <- function() {
 
 source_project()
 
+get_week_matches <- function(week_num) {
+  df <-
+    scrape_week(week_num)
+  
+  saveRDS(df, 
+          here::here("temp", paste0("week",week_num,".Rds")))
+  
+  df2 <- 
+    df %>% 
+    clean_week(week_num)
+  
+  df <- df2
+  rm(df2)
+  
+  saveRDS(df, 
+          here::here("temp", paste0("week",week_num,".Rds")))
+  
+  write_raw_data(df)
+  
+  df %>% 
+    make_roster_df() %>% 
+    write_roster()
+  
+  df %>% 
+    make_match_df() %>% 
+    write_match()
+}
+
+get_week_players <- function(week_num) {
+  df <-
+    scrape_player_data(week_num)
+  
+  saveRDS(df, 
+          here::here("temp", paste0("week",week_num,"_players.Rds")))
+  
+  df <- 
+    df %>% 
+    clean_week_ranks(week_num) %>% 
+    add_ranks()
+  
+  saveRDS(df, 
+          here::here("temp", paste0("week",week_num,"_players.Rds")))
+  
+  get_roster_data() %>% 
+    filter(Week == week_num) %>% 
+    join_roster_ranks(df) %>% 
+    write_expanded_roster()
+}
+
+get_week <- function(week_num) {
+  get_week_matches(week_num)
+  get_week_players(week_num)
+}
+
+
+purrr::map()

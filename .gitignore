@@ -4,3 +4,4 @@
 .Ruserdata
 .httr-oauth
 conf/credentials.yml
+temp/
