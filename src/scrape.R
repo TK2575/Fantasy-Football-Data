@@ -2,6 +2,7 @@
 library('RSelenium')
 library('purrr')
 library('config')
+library('rvest')
 library(here)
 
 base_url <- "https://football.fantasysports.yahoo.com/f1/73636/"
@@ -56,6 +57,28 @@ player_url <- function(pos,week,page) {
 }
 
 scrape_player_page <- function(rd,pos,week,page) {
+  i <- 0
+  l <- 0
+  result <- NULL
+  
+  while (i < 5) {
+    result <- try_scrape_player_page(rd,pos,week,page)
+    l <- result %>% read_html() %>% html_nodes('#players-table table') %>% length()
+    if (l > 0) {
+      i <- 5
+    } else {
+      i < i + 1
+      Sys.sleep(10)
+    }
+  }
+  
+  if (result %>% is.null()) {
+    stop(paste0("Couldn't scrape valid player page: pos=",pos,", week=",week,", page=",page))
+  } 
+  result
+}
+
+try_scrape_player_page <- function(rd,pos,week,page) {
   rd$navigate(player_url(pos,week,page))
   source_page(rd)
 }
