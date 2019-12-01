@@ -3,7 +3,7 @@ library(here)
 
 source_project <- function() {
   here::here("src") %>% setwd()
-  sources <- c('scrape.R', 'clean.R', 'tidy.R', 'db.R', 'summary.R')
+  sources <- c('scrape.R', 'clean.R', 'tidy.R', 'db.R', 'summary.R', 'csv_out.R')
   map(sources, source)
   here::here() %>% setwd()
 }
@@ -65,3 +65,6 @@ get_week <- function(week_num) {
 }
 
 #purrr::map(1:12, get_week_players)
+
+
+write_week_to_csv()
