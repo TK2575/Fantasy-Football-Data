@@ -120,7 +120,7 @@ connect <- function() {
   dbConnect(
     RMySQL::MySQL(),
     dbname = "2019_ff",
-    host = "localhost",
+    host = "192.168.1.168",
     port = 3306,
     user = "2019_ff",
     password = "2019_ff"

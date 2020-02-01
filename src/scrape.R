@@ -9,7 +9,7 @@ base_url <- "https://football.fantasysports.yahoo.com/f1/73636/"
 
 open_session <- function() {
   rd <- remoteDriver(
-    remoteServerAddr = "192.168.0.246",
+    remoteServerAddr = "192.168.1.168",
     port = 4445L
   )
   
