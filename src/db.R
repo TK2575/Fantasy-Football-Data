@@ -117,13 +117,14 @@ get_raw_data <- function() {
 }
 
 connect <- function() {
+  ipaddress <- config::get(file = here::here("conf", "credentials.yml"))$network$ipaddress
   dbConnect(
     RMySQL::MySQL(),
-    dbname = "2019_ff",
-    host = "192.168.1.168",
+    dbname = "2020_ff",
+    host = ipaddress,
     port = 3306,
-    user = "2019_ff",
-    password = "2019_ff"
+    user = "2020_ff",
+    password = "2020_ff"
   )
 }
 

@@ -5,11 +5,12 @@ library('config')
 library('rvest')
 library(here)
 
-base_url <- "https://football.fantasysports.yahoo.com/f1/73636/"
+base_url <- "https://football.fantasysports.yahoo.com/f1/109217/"
 
 open_session <- function() {
+  ipaddress <- config::get(file = here::here("conf", "credentials.yml"))$network$ipaddress
   rd <- remoteDriver(
-    remoteServerAddr = "192.168.1.168",
+    remoteServerAddr = ipaddress,
     port = 4445L
   )
   

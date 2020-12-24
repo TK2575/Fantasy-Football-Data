@@ -64,6 +64,7 @@ get_week <- function(week_num) {
   get_week_players(week_num)
 }
 
-purrr::map(14:16, get_week)
+#get_week(1)
+#purrr::map(14:16, get_week)
 
-write_week_to_csv()
+#write_week_to_csv()
