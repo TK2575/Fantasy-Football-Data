@@ -7,5 +7,5 @@ docker run --name mysql-rff5 \
 
 docker run -d \
 -p 4445:4444 -p 5901:5900 \
---memory 1024mb --shm-size 2g \
+--memory 4096mb --shm-size 4g \
 selenium/standalone-firefox-debug:latest
