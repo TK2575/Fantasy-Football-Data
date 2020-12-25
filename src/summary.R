@@ -31,7 +31,7 @@ team_pos_summary <- function(roster_df,mode='sum') {
   } 
   
   results <- results %>% 
-    select(Team, QB, RB, WR, TE, K, DEF) %>%
+    select(Team, 'Q/WR/T', RB, WR, TE, K, DEF) %>%
     add_league_average()
   
   dec <- sapply(results, is.numeric)
@@ -40,7 +40,7 @@ team_pos_summary <- function(roster_df,mode='sum') {
 
 team_slot_summary <- function(roster_df, mode='sum') {
   sngl_slts <- roster_df %>%
-    dplyr::filter(Slot %in% c('QB','TE','W/R/T','K','DEF'), Bench == F)
+    dplyr::filter(Slot %in% c('Q/WR/T','TE','W/R/T','K','DEF'), Bench == F)
   
   rb <- roster_df %>% 
     split_slots('RB')
@@ -62,7 +62,7 @@ team_slot_summary <- function(roster_df, mode='sum') {
   
   results <- results %>% 
     ungroup() %>%
-    select(Team, QB, RB1, RB2, WR1, WR2, TE, 'W/R/T', K, DEF) %>%
+    select(Team, 'Q/WR/T', RB1, RB2, WR1, WR2, TE, 'W/R/T', K, DEF) %>%
     add_league_average()
   
   dec <- sapply(results, is.numeric)
@@ -106,7 +106,7 @@ ex_player_summary <- function(x_rstr_df) {
 }
 
 player_scoring_summary <- function(x_rstr_df) {
-  pos_ordered <- c('QB','RB','WR','TE','W/R/T','K','DEF')
+  pos_ordered <- c('Q/WR/T','RB','WR','TE','W/R/T','K','DEF')
   x_rstr_df %>%
     filter(!is.na(Player), Points != 0) %>%
     group_by(Pos, Player) %>%

@@ -106,6 +106,7 @@ get_expanded_roster_data <- function() {
 get_matches_data <- function() {
   df <- get_data('matches') %>% num_to_lgl('playoffs')
   colnames(df) <- c('Week', 'Team', 'Win', 'Opponent', 'Points', 'Net_vs_Proj', 'Bench_Points', 'Optimal_Points', 'Playoffs')
+  df['Playoffs'] <- FALSE
   df
 }
 

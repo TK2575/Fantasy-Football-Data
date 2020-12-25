@@ -7,16 +7,22 @@ write_week_to_csv <- function(week_num = 0) {
   if (week_num > 0) {
     mtchs <- mtchs %>% filter(Week == week_num)
   }
-  tm_scrng_smry <- get_matches_data() %>% team_summary()
-  pstn_scrng_smry <- get_roster_data() %>% team_slot_summary()
-  pstn_scrng_vs_prjctn <- get_roster_data() %>% team_slot_summary(mode='vs_proj')
-  rstr <- get_roster_data() 
+  
+  rstr <- get_roster_data()
+  
+  tm_scrng_smry <- mtchs %>% team_summary()
+  pstn_scrng_smry <- rstr %>% team_slot_summary()
+  pstn_scrng_vs_prjctn <- rstr %>% team_slot_summary(mode='vs_proj')
+  
   if (week_num > 0) {
     rstr <- rstr %>% filter(Week == week_num)
   }
+  
+  rstr_xpnd <- get_expanded_roster_data() 
+  
   plyr_scrng_smry <- get_expanded_roster_data() %>% ex_player_summary()
   plyr_scrng_smry2 <- get_expanded_roster_data() %>% player_scoring_summary()
-  rstr_xpnd <- get_expanded_roster_data() 
+  
   if (week_num > 0) {
     rstr_xpnd <- rstr_xpnd %>% filter(Week == week_num)
   }
