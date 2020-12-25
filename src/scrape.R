@@ -91,15 +91,22 @@ scrape_player_pages <- function(rd,pos,week,pages) {
 scrape_player_data <- function(week) {
   rd <- open_session()
   login(rd)
-  
   qb <- scrape_player_pages(rd,'QB',week,3)
-  rb <- scrape_player_pages(rd,'RB',week,17)
-  wr <- scrape_player_pages(rd,'WR',week,17)
   te <- scrape_player_pages(rd,'TE',week,9)
   k <- scrape_player_pages(rd,'K',week,3)
   dst <- scrape_player_pages(rd,'DEF',week,2)
-  
   close_session(rd)
+  
+  rd <- open_session()
+  login(rd)
+  rb <- scrape_player_pages(rd,'RB',week,17)
+  close_session(rd)
+  
+  rd <- open_session()
+  login(rd)
+  wr <- scrape_player_pages(rd,'WR',week,17)
+  close_session(rd)
+  
   res <- list(qb,rb,wr,te,k,dst)
   names(res) <- c('QB','RB','WR','TE','K','DEF')
   res
