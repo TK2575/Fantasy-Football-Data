@@ -91,7 +91,7 @@ scrape_player_pages <- function(rd,pos,week,pages) {
 scrape_player_data <- function(week) {
   rd <- open_session()
   login(rd)
-  qb <- scrape_player_pages(rd,'Q/W/R/T',week,3)
+  qb <- scrape_player_pages(rd,'QB',week,3)
   te <- scrape_player_pages(rd,'TE',week,9)
   k <- scrape_player_pages(rd,'K',week,3)
   dst <- scrape_player_pages(rd,'DEF',week,2)

@@ -64,7 +64,7 @@ write_week <- function(week_num) {
     make_match_df() %>% 
     write_match()
   
-  df <- readRDS(here::here("temp", paste0("week",week_num,".Rds")))
+  df <- readRDS(here::here("temp", paste0("week",week_num,"_players.Rds")))
   
   get_roster_data() %>% 
     filter(Week == week_num) %>% 
