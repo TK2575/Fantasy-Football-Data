@@ -46,7 +46,9 @@ get_week_players <- function(week_num) {
 
 get_week <- function(week_num) {
   get_week_matches(week_num)
+  Sys.sleep(10)
   get_week_players(week_num)
+  Sys.sleep(10)
 }
 
 write_week <- function(week_num) {
