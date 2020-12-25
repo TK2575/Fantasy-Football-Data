@@ -52,7 +52,7 @@ get_week <- function(week_num) {
 }
 
 write_week <- function(week_num) {
-  df <- readRds(here::here("temp", paste0("week",week_num,".Rds")))
+  df <- readRDS(here::here("temp", paste0("week",week_num,".Rds")))
   
   write_raw_data(df)
   
@@ -64,7 +64,7 @@ write_week <- function(week_num) {
     make_match_df() %>% 
     write_match()
   
-  df <- readRds(here::here("temp", paste0("week",week_num,".Rds")))
+  df <- readRDS(here::here("temp", paste0("week",week_num,".Rds")))
   
   get_roster_data() %>% 
     filter(Week == week_num) %>% 
