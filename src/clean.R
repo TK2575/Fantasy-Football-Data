@@ -193,7 +193,8 @@ clean_week_ranks <- function(html_list,week) {
   def <- html_list[['DEF']] %>% extract_plyr_html_list(mode='def')
   
   bind_rows(qb,rb,wr,te,k,def) %>% 
-    mutate(Week = week)
+    mutate(Week = week) %>% 
+    dplyr::distinct()
 }
 
 extract_plyr_html_list <- function(html_list, mode='offense') {
@@ -256,15 +257,18 @@ extract_plyr_html_list <- function(html_list, mode='offense') {
         bind_rows(new_rows)
     }
   }
+  
   df <- as_tibble(df)
   df$Player <- v_cln_plyr(df$Player)
+  df$Full_Name <- df$Player
   if (mode != 'def') {
     df$Player <- v_trim_first_name(df$Player)
   }
   df$Perc_Owned <- v_cnvrt_perc(df$Perc_Owned)
   df <- df %>% mutate(Pos = v_ext_pos(Player))
   df$Player <- v_trim_plyr(df$Player)
-  not_int <- grep(paste(c('Player','Pos'),collapse="|"),colnames(df))
+  df$Full_Name <- v_trim_plyr(df$Full_Name)
+  not_int <- grep(paste(c('Player','Pos',"Full_Name"),collapse="|"),colnames(df))
   df[,-(not_int)] <- suppressWarnings(lapply(df[,-(not_int)], as.numeric))
   df
 }

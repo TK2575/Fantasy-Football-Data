@@ -23,7 +23,7 @@ add_ranks <- function(df) {
                            na.last = 'keep',
                            ties.method = 'min')) %>%
     ungroup() %>%
-    select(Week, Pos, Player, Points, Perc_Owned, Rank_Ovrl, Rank_Proj, Rank_Pos, everything())
+    select(Week, Pos, Full_Name, Player, Points, Perc_Owned, Rank_Ovrl, Rank_Proj, Rank_Pos, everything())
 }
 
 make_match_df <- function(df) {
