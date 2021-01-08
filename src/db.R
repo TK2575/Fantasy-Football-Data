@@ -67,6 +67,7 @@ get_expanded_roster_data <- function() {
                     'Slot',
                     'Pos',
                     'Player',
+                    'Full_Name',
                     'Points',
                     'Proj',
                     'Rank_Ovrl',

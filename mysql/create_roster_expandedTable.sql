@@ -7,6 +7,7 @@ CREATE TABLE `2020_ff`.`roster_expanded` (
   `slot` VARCHAR(8) NOT NULL,
   `pos` VARCHAR(8) NOT NULL,
   `player` VARCHAR(255) NOT NULL,
+  `full_name` VARCHAR(255) NOT NULL,
   `points` DECIMAL(8,3) NULL,
   `proj` DECIMAL(8,3) NULL,
   `rank_ovrl` INT NULL,
