@@ -97,18 +97,31 @@ player_summary <- function(roster_df) {
 ex_player_summary <- function(x_rstr_df) {
   x_rstr_df %>%
     filter(!is.na(Player) & !is.na(Team)) %>%
-    group_by(Pos, Player, Team, Bench) %>%
-    dplyr::summarize(Avg_Points = mean(Points),
+    group_by(Pos, Player, Full_Name, Team, Bench) %>%
+    dplyr::summarize(Avg_Points = round(mean(Points),2),
               Avg_vs_Proj = round(mean(Points - Proj),1),
               Avg_Pos_Rank = round(mean(Rank_Pos)),
               Weeks = n()) %>%
-    ungroup()
+    ungroup() %>% 
+    mutate(Player_Name = if_else(is.na(Full_Name), Player, Full_Name)) %>% 
+    select(-Player, -Full_Name) %>% 
+    rename(Player = Player_Name) %>% 
+    select(Pos, Player, Team, Bench, Avg_Points, Avg_vs_Proj, Avg_Pos_Rank, Weeks)
 }
 
 player_scoring_summary <- function(x_rstr_df) {
   pos_ordered <- c('Q/WR/T','RB','WR','TE','W/R/T','K','DEF')
-  x_rstr_df %>%
-    filter(!is.na(Player), Points != 0) %>%
+  
+  df <- 
+    x_rstr_df %>% 
+    filter(Pos != 'DEF', !is.na(Player), Points != 0)
+  
+  df <- 
+    x_rstr_df %>% 
+    filter(Pos == 'DEF', !is.na(Player), !is.na(Yds_Allow)) %>% 
+    bind_rows(df)
+  
+  df %>%
     group_by(Pos, Player) %>%
     dplyr::summarize(Total_Points = sum(Points, na.rm = T),
               Avg_Points = round(median(Points, na.rm = T),2),

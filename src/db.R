@@ -19,10 +19,13 @@ write_match <- function(df) {
 }
 
 write_to_db <- function(df, table_name) {
-  con <- connect()
   lgl_c <- sapply(df, is.logical)
   df[,lgl_c] <- lapply(df[,lgl_c], as.numeric)
   
+  str_c <- sapply(df, is.character)
+  df[,str_c] <- lapply(df[,str_c], stringr::str_replace_all, "’", "'")
+  
+  con <- connect()
   dbWriteTable(con,
                value = df,
                name = table_name,
@@ -55,6 +58,18 @@ num_to_lgl <- function(df, col) {
 
 get_roster_data <- function() {
   df <- get_data('roster') %>% num_to_lgl('bench')
+  
+  ex <- 
+    get_data('roster_expanded') %>% 
+    num_to_lgl('bench') %>% 
+    dplyr::select(full_name, player, team, points, pos)
+  
+  df <-
+    df %>% 
+    left_join(ex) %>% 
+    mutate(player_name = dplyr::if_else(is.na(full_name), player, full_name)) %>% 
+    select(week, team, bench, slot, pos, player_name, points, proj, stats)
+  
   colnames(df) <- c('Week', 'Team', 'Bench', 'Slot', 'Pos', 'Player', 'Points', 'Proj', 'Stats')
   df
 }

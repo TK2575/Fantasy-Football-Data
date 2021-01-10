@@ -27,6 +27,10 @@ write_week_to_csv <- function(week_num = 0) {
     rstr_xpnd <- rstr_xpnd %>% filter(Week == week_num)
   }
   
+  rstr_xpnd <-rstr_xpnd %>% 
+    select(-Player) %>% 
+    rename(Player = Full_Name)
+  
   setwd("out")
   
   write_csv(mtchs, "1_matches.csv")
