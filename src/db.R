@@ -68,7 +68,8 @@ get_roster_data <- function() {
     df %>% 
     left_join(ex) %>% 
     mutate(player_name = dplyr::if_else(is.na(full_name), player, full_name)) %>% 
-    select(week, team, bench, slot, pos, player_name, points, proj, stats)
+    select(week, team, bench, slot, pos, player_name, points, proj, stats) %>% 
+    dplyr::distinct()
   
   colnames(df) <- c('Week', 'Team', 'Bench', 'Slot', 'Pos', 'Player', 'Points', 'Proj', 'Stats')
   df
