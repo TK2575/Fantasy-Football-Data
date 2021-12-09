@@ -11,7 +11,7 @@ docker run -d \
 selenium/standalone-firefox-debug:latest
 
 docker run -d \
--v ~/repos/rFF_legacy:/rFF_legacy \
+-v ~/repos/rFF_legacy:/home/rstudio/rFF_legacy \
 -p 8787:8787 \
 -e ROOT=TRUE \
 -e PASSWORD=somePassword \
