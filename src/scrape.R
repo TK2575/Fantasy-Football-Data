@@ -5,7 +5,7 @@ library('config')
 library('rvest')
 library(here)
 
-base_url <- "https://football.fantasysports.yahoo.com/f1/109217/"
+base_url <- "https://football.fantasysports.yahoo.com/f1/41236/"
 
 open_session <- function() {
   ipaddress <- config::get(file = here::here("conf", "credentials.yml"))$network$ipaddress
