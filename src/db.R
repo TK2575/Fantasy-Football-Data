@@ -138,11 +138,11 @@ connect <- function() {
   ipaddress <- config::get(file = here::here("conf", "credentials.yml"))$network$ipaddress
   RMySQL::dbConnect(
     RMySQL::MySQL(),
-    dbname = "2020_ff",
+    dbname = "2021_ff",
     host = ipaddress,
     port = 3306,
-    user = "2020_ff",
-    password = "2020_ff"
+    user = "2021_ff",
+    password = "2021_ff"
   )
 }
 
